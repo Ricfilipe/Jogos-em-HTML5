@@ -112,9 +112,17 @@ function Tile(x, y,type) {
 			Tile.BLANK = new Image();
 			Tile.BLANK.src = _c.toDataURL();
 
-			// IM1
+			// IM0
 			_ctx.fillStyle = "#ff6666";
 			_ctx.translate(5, 5);
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM0 = new Image();
+			Tile.IM0.src = _c.toDataURL();
+			
+			// IM1
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#ffcc66";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM1 = new Image();
 			Tile.IM1.src = _c.toDataURL();
@@ -122,10 +130,67 @@ function Tile(x, y,type) {
 			// IM2
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#ffcc66";
+			_ctx.fillStyle = "#ff0000";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM2 = new Image();
 			Tile.IM2.src = _c.toDataURL();
+			
+			// IM3
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#ff33cc";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM3 = new Image();
+			Tile.IM3.src = _c.toDataURL();
+			
+			// IM4
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#66ff33";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM4 = new Image();
+			Tile.IM4.src = _c.toDataURL();
+			
+			// IM5
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#00ffcc";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM5 = new Image();
+			Tile.IM5.src = _c.toDataURL();
+			
+			// IM6
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#ffffff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM6 = new Image();
+			Tile.IM6.src = _c.toDataURL();
+			
+			// IM7
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#000000";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM7 = new Image();
+			Tile.IM7.src = _c.toDataURL();
+			
+			// IM8
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#0000cc";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM8 = new Image();
+			Tile.IM8.src = _c.toDataURL();
+			
+			// IM9
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM9 = new Image();
+			Tile.IM9.src = _c.toDataURL();
+			
 		})();
 		tile = Tile.BLANK;
 	
@@ -134,7 +199,7 @@ function Tile(x, y,type) {
 	
 	switch(type){
 		case 0:
-			this.hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM0;
 			break;
 		case 1:
 			this.hidden_t=Tile.IM1;
@@ -143,25 +208,25 @@ function Tile(x, y,type) {
 			this.hidden_t=Tile.IM2;
 			break;
 		case 3:
-			this.hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM3;
 			break;
 		case 4:
-			this.hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM4;
 			break;
 		case 5:
-			this.hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM5;
 			break;
 		case 6:
-			this.hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM6;
 			break;
 		case 7:
-			this.hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM7;
 			break;
 		case 8:
-			this.hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM8;
 			break;
 		case 9:
-			this.hidden_t=Tile.IM2
+			this.hidden_t=Tile.IM9;
 		}
 
 	this.undoTile = function(){
