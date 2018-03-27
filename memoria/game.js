@@ -231,7 +231,6 @@ function Tile(x, y,type) {
 
 	this.undoTile = function(){
 		anim = 2;
-		console.log("undo")
 		undo=true;
 	}
 	
@@ -240,7 +239,7 @@ function Tile(x, y,type) {
 	}
 	
 	this.active = function() {
-		return anim > 0.00;
+		return anim > 0.20;
 	}
 
 	this.equals = function(_tile) {
