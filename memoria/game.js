@@ -89,7 +89,7 @@ function StateManager() {
 }
 
 function Tile(x, y,type) {
-	var hidden_t;
+	this.hidden_t;
 
 	var x = x, y = y;
 	var undo = false;
@@ -134,34 +134,34 @@ function Tile(x, y,type) {
 	
 	switch(type){
 		case 0:
-			hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM1;
 			break;
 		case 1:
-			hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM1;
 			break;
 		case 2:
-			hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM2;
 			break;
 		case 3:
-			hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM1;
 			break;
 		case 4:
-			hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM2;
 			break;
 		case 5:
-			hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM1;
 			break;
 		case 6:
-			hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM2;
 			break;
 		case 7:
-			hidden_t=Tile.IM2;
+			this.hidden_t=Tile.IM2;
 			break;
 		case 8:
-			hidden_t=Tile.IM1;
+			this.hidden_t=Tile.IM1;
 			break;
 		case 9:
-			hidden_t=Tile.IM2
+			this.hidden_t=Tile.IM2
 		}
 
 	this.undoTile = function(){
@@ -179,7 +179,7 @@ function Tile(x, y,type) {
 	}
 
 	this.equals = function(_tile) {
-		return tile.hidden_t === _tile.hidden_t;
+		return this.hidden_t === _tile.hidden_t;
 	}
 
 	this.hasData = function() {
@@ -192,7 +192,7 @@ function Tile(x, y,type) {
 
 	this.flip = function() {
 		undo=false;
-		tile = hidden_t;
+		tile = this.hidden_t;
 		anim = 1;
 	}
 
@@ -216,7 +216,7 @@ function Tile(x, y,type) {
 		if(!undo){
 		var t = anim > 0.5 ? Tile.BLANK : tile;
 		}else{
-		var t = anim > 0.5 ? Tile.IM1 : tile;
+		var t = anim > 0.5 ? this.hidden_t : tile;
 		}
 		var p = -Math.abs(2*anim - 1) + 1;
 
