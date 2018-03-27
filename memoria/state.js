@@ -6,19 +6,14 @@ function MenuState(name) {
 
 	var btns = [], angle = 0, frames = 0;
 
-	var _yPos = 100;
-	btns.push(new MenuButton("1 Jogador", 20, _yPos, function() {
+	var _yPos = 250;
+	btns.push(new MenuButton("Jogar", 260, _yPos, function() {
 	if(!state.next){
-		state.get("game").init(ONE_PLAYER);
+		state.get("game").init();
 		state.change("game");
 		}
-	},50,340));
-	btns.push(new MenuButton("2 Jogadores", 20, _yPos+70, function() {
-		if(!state.next){
-		state.get("game").init(TWO_PLAYER);
-		state.change("game",true);
-		}
-	},50,340));
+	},80,400));
+
 
 
 
@@ -31,10 +26,10 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		ctx.save();
-		ctx.translate(190, 40);
-		ctx.font = "40px Helvetica";
+		ctx.translate(460, 100);
+		ctx.font = "60px Helvetica";
 		ctx.fillStyle = "black";
-		var txt = "Jogo do Galo";
+		var txt = "Jogo da Memória";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
@@ -50,78 +45,80 @@ function MenuState(name) {
 	}
 }
 
-var ONE_PLAYER = 1,
-	TWO_PLAYER = 2;
-var winnergb;
-var modegb;
-function GameState(name) {
 
+
+function GameState(name) {
+	var complete=false;
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),counter=0,
 		ctx = scene.getContext();
-	
-	var data, player, ai, isPlayer, aiMoved, mode, winner, winnerMsg, hastick;
+	var playsmade=[];
+	var data, player, isPlayer, aiMoved, mode, winner, winnerMsg, hastick;
 
 	canvas.addEventListener("mousedown", function(evt) {
-		if (winnerMsg && (state.active_name === "game" || state.active_name === "game2")) {
+		if (winnerMsg && (state.active_name === "game")) {
 			return;
 		}
 
 		
-		if (!isPlayer || winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick) return;
-
+		if ( winner || (state.active_name !== "game") || !hastick) return;
 		var px = mouse.x;
 		var py = mouse.y;
+		
+		if(counter==2)return;
 
-		if (px % 120 >= 20 && py % 120 >= 20) {
-			var idx = Math.floor(px/120);
-			idx += Math.floor(py/120)*3;
+		if (px % 180 >= 20 && py % 180 >= 20) {
+			var idx = Math.floor(px/180);
+			idx += Math.floor(py/180)*5;
 
 			if (data[idx].hasData()) {
 				return;
 			}
-			data[idx].flip(player);
-			if (mode & ONE_PLAYER) {
-				counter=counter+1;
-				isPlayer = false;
-			} else {
-				counter=counter+1;
-				player = player === Tile.NOUGHT ? Tile.CROSS : Tile.NOUGHT;
-			}
+			
+			data[idx].flip();
+			playsmade[counter]=idx;
+			counter+=1;
+
 		}
 	}, false);
 
 
-	this.init = function(_mode, tile) {
-		modegb=_mode;
-		mode = _mode || ONE_PLAYER;
+	this.init = function( tile) {
+		var spots=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9];
+		var type=1;
 		data = [];
 		counter=0;
-		for (var i = 0; i < 9; i++) {
-			var x = (i % 3)*120 + 20;
-			var y = Math.floor(i/3)*120 + 20;
-			data.push(new Tile(x, y));
+		for (var i = 0; i < 20; i++) {
+			var x = (i % 5)*180 + 20;
+			var y = Math.floor(i/5)*180 + 20;
+			aux=Math.floor(Math.random()*(spots.length))
+			type=  spots[aux];
+			spots.splice(aux,1);
+			console.log(type);
+			console.log(spots);
+			data.push(new Tile(x, y,type));
 		}
+		ai= new AIPlayer(data);
 
-		player = tile || Tile.NOUGHT;
-
-		isPlayer = player === Tile.NOUGHT;
-		aiMoved = false;
-		winner = false;
-		winnerMsg = false;
-		hastick = false;
-		winnergb=winner;
-		ai = new AIPlayer(data);
-		ai.setSeed(player === Tile.NOUGHT ? Tile.CROSS : Tile.NOUGHT);
-
-		if (mode & TWO_PLAYER) {
-			player = Tile.NOUGHT;
-			isPlayer = true;
-		}
 	}
 
 	this.update = function() {
 		if (winnerMsg) return;
+		console.log( counter==2 && !data[playsmade[1]].active() );
+		if(counter==2 && !complete && !(data[playsmade[0]].active()) && !(data[playsmade[1]].active()) ){
+			complete=true;
+			if((data[playsmade[0]].equals(data[playsmade[1]]))){
+			
+			}else{
+				data[playsmade[0]].undoTile();
+				data[playsmade[1]].undoTile();
+				}
+			}
+		if(complete && !(data[playsmade[0]].active()) && !(data[playsmade[1]].active()) ){
+		counter=0;
+		complete=false;
+		}
+			
 		var activeAnim = false;
 		var randomplay=0;
 		for (var i = data.length; i--;) {
@@ -129,52 +126,15 @@ function GameState(name) {
 			activeAnim = activeAnim || data[i].active();
 		}
 		if (!activeAnim) {
-			if (!aiMoved && !isPlayer) {
-				var m = ai.move();
-				if (m === -1) {
-					if(winner===false){
-					winner = true;
-					}
-				} else {
-					if(Math.random()*10>6){
-					data[m].flip(ai.getSeed());
-					}else{
-					for(;;){
-					randomplay = Math.floor(Math.random()*(10-(counter*2)));
-					console.log(ai.getmvs()[randomplay]);
-
-							data[ai.getmvs()[randomplay]].flip(ai.getSeed());
-							break;
-							}
-					
-					}
-				}
-				isPlayer = true;
-			}
-
-			if (winner && !aiMoved) {
+			if (winner) {
 			winnergb=winner;
 				if (winner === true) {
-					winnerMsg = "O Jogo Empatou";
-				} else if (winner === Tile.NOUGHT) {
-					winnerMsg = "O Primeiro Jogador Ganhou";
-					
-				} else {
-					if(mode==TWO_PLAYER)
-					winnerMsg = "O Segundo Jogador Ganhou";
-					else{
-					winnerMsg = "O Computador Ganhou";
-				}
-				}
+					winnerMsg = "Paranbéns!";
+				} 
 			}
 
-			aiMoved = true;
 		} else {
-				winner = ai.hasWinner();
-				console.log(winner === Tile.NOUGHT);
-				if(counter==9 && winner==false)
-				winner=true;
-				aiMoved = false;
+				//winner = ai.hasWinner();
 		}
 		hastick = true;
 	}
@@ -215,23 +175,14 @@ function GameState(name) {
 			var btns  = []
 			btns.push(new EndButton("Repetir", 180, 40, function() {
 			if(!state.next){
-			if(modegb==ONE_PLAYER){
 			 if(state.active_name=="game2"){
-			state.get("game").init(ONE_PLAYER);
+			state.get("game").init();
 			state.change("game");
 			}else{
-				state.get("game2").init(ONE_PLAYER);
+				state.get("game2").init();
 				state.change("game2");
 			}
-			}else{
-				if(state.active_name=="game2"){
-			state.get("game").init(TWO_PLAYER);
-			state.change("game",true);
-			}else{
-			state.get("game2").init(TWO_PLAYER);
-			state.change("game2",true);
 			}
-			}}
 			},30,100));
 			
 			btns.push(new EndButton("Voltar", 30, 40, function() {

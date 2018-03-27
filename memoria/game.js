@@ -88,17 +88,18 @@ function StateManager() {
 	}
 }
 
-function Tile(x, y) {
+function Tile(x, y,type) {
+	var hidden_t;
 
 	var x = x, y = y;
-
+	var undo = false;
 	var tile = Tile.BLANK;
 	var anim = 0;
 
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = _c.height = 100;
+			_c.width = _c.height = 160;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#00ff99";
@@ -107,42 +108,78 @@ function Tile(x, y) {
 			_ctx.lineCap = "round";
 
 			// Blank
-			_ctx.fillRect(0, 0, 100, 100);
+			_ctx.fillRect(0, 0, 160, 160);
 			Tile.BLANK = new Image();
 			Tile.BLANK.src = _c.toDataURL();
 
-			// Nought#ffff99
-			_ctx.fillRect(0, 0, 100, 100);
+			// IM1
+			_ctx.fillStyle = "#ff6666";
+			_ctx.translate(5, 5);
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM1 = new Image();
+			Tile.IM1.src = _c.toDataURL();
 
-			_ctx.beginPath();
-			_ctx.arc(50, 50, 30, 0, 2*Math.PI);
-			_ctx.stroke();
-
-			Tile.NOUGHT = new Image();
-			Tile.NOUGHT.src = _c.toDataURL();
-
-			// Cross
-			_ctx.fillRect(0, 0, 100, 100);
-			_ctx.strokeStyle = "#ffcc66";
-			_ctx.beginPath();
-			_ctx.moveTo(20, 20);
-			_ctx.lineTo(80, 80);
-			_ctx.moveTo(80, 20);
-			_ctx.lineTo(20, 80);
-			_ctx.stroke();
-
-			Tile.CROSS = new Image();
-			Tile.CROSS.src = _c.toDataURL();
+			// IM2
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#ffcc66";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM2 = new Image();
+			Tile.IM2.src = _c.toDataURL();
 		})();
 		tile = Tile.BLANK;
+	
+	
 	}
+	
+	switch(type){
+		case 0:
+			hidden_t=Tile.IM1;
+			break;
+		case 1:
+			hidden_t=Tile.IM1;
+			break;
+		case 2:
+			hidden_t=Tile.IM2;
+			break;
+		case 3:
+			hidden_t=Tile.IM1;
+			break;
+		case 4:
+			hidden_t=Tile.IM2;
+			break;
+		case 5:
+			hidden_t=Tile.IM1;
+			break;
+		case 6:
+			hidden_t=Tile.IM2;
+			break;
+		case 7:
+			hidden_t=Tile.IM2;
+			break;
+		case 8:
+			hidden_t=Tile.IM1;
+			break;
+		case 9:
+			hidden_t=Tile.IM2
+		}
 
+	this.undoTile = function(){
+		anim = 2;
+		console.log("undo")
+		undo=true;
+	}
+	
+	this.getHidden = function(){
+		return hidden_t;
+	}
+	
 	this.active = function() {
-		return anim > 0;
+		return anim > 0.00;
 	}
 
 	this.equals = function(_tile) {
-		return tile === _tile;
+		return tile.hidden_t === _tile.hidden_t;
 	}
 
 	this.hasData = function() {
@@ -153,8 +190,9 @@ function Tile(x, y) {
 		tile = next;
 	}
 
-	this.flip = function(next) {
-		tile = next;
+	this.flip = function() {
+		undo=false;
+		tile = hidden_t;
 		anim = 1;
 	}
 
@@ -165,29 +203,41 @@ function Tile(x, y) {
 	}
 
 	this.draw = function(ctx) {
-		if (anim <= 0) {
+		if (anim <= 0||anim>1) {
 			ctx.drawImage(tile, x, y);
 			return;
 		}
-
+		
+		if(undo==true && anim >0){
+		tile=Tile.BLANK;
+		}
+		
 		var res = 2;
+		if(!undo){
 		var t = anim > 0.5 ? Tile.BLANK : tile;
+		}else{
+		var t = anim > 0.5 ? Tile.IM1 : tile;
+		}
 		var p = -Math.abs(2*anim - 1) + 1;
 
 		p *= p;
 
-		for (var i = 0; i < 100; i += res) {
-
-			var j = 50 - (anim > 0.5 ? 100 - i : i);
-
-			ctx.drawImage(t, i, 0, res, 100,
+		for (var i = 0; i < 160; i += res) {
+			if(!undo){
+				var j = 50 - (anim > 0.5 ? 160 - i : i);
+			}else{
+			var j = 50 - (anim > 0.5 ? i: 160 - i );
+			}
+			
+			ctx.drawImage(t, i, 0, res, 160,
 				x + i - p*i + 50*p,
 				y - j*p*0.2,
 				res,
-				100 + j*p*0.4
+				160 + j*p*0.4
 			);
 		}
 	}
+	
 
 }
 
@@ -203,6 +253,10 @@ function AIPlayer(data) {
 
 	this.getSeed = function() {
 		return seed;
+	}
+	
+		this.checkplay = function(t1,t2) {
+		return data[t1].equals(data[t2]);
 	}
 
 	this.move = function() {
@@ -394,7 +448,7 @@ function MenuButton(text, x, y, cb,h,w) {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "20px Helvetica";
+		_ctx.font = "40px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -408,7 +462,7 @@ function MenuButton(text, x, y, cb,h,w) {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = text;
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 30);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 50);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -417,7 +471,7 @@ function MenuButton(text, x, y, cb,h,w) {
 		_ctx.stroke();
 
 		_ctx.fillStyle = "white";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 30);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 50);
 
 		hover = new Image();
 		hover.src = _c.toDataURL();
