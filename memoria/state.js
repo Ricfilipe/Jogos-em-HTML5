@@ -29,7 +29,7 @@ function MenuState(name) {
 		ctx.translate(460, 100);
 		ctx.font = "60px Helvetica";
 		ctx.fillStyle = "black";
-		var txt = "Jogo da Memória";
+		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
@@ -48,20 +48,20 @@ function MenuState(name) {
 
 
 function GameState(name) {
-	var complete=false;
+	var complete=true;
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),counter=0,
 		ctx = scene.getContext();
 	var playsmade=[];
-	var data, player, isPlayer, aiMoved, mode, winner, winnerMsg, hastick;
+	var data, player, isPlayer, pares=0, mode, winner, winnerMsg, hastick;
 
 	canvas.addEventListener("mousedown", function(evt) {
-		if (winnerMsg && (state.active_name === "game")) {
+		if (winnerMsg && (state.active_name === "game" || state.active_name === "game2" )) {
 			return;
 		}
 
 		
-		if ( winner || (state.active_name !== "game") || !hastick) return;
+		if ( winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick) return;
 		var px = mouse.x;
 		var py = mouse.y;
 		
@@ -74,10 +74,11 @@ function GameState(name) {
 			if (data[idx].hasData()) {
 				return;
 			}
-			
+			if(complete){
 			data[idx].flip();
 			playsmade[counter]=idx;
 			counter+=1;
+			}
 
 		}
 	}, false);
@@ -86,6 +87,10 @@ function GameState(name) {
 	this.init = function( tile) {
 		var spots=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9];
 		var type=1;
+		winner=false;
+		winnergb=false;
+		winnerMsg=false;
+		hastick = false;
 		data = [];
 		counter=0;
 		for (var i = 0; i < 20; i++) {
@@ -94,8 +99,6 @@ function GameState(name) {
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
-			console.log(type);
-			console.log(spots);
 			data.push(new Tile(x, y,type));
 		}
 		ai= new AIPlayer(data);
@@ -103,39 +106,47 @@ function GameState(name) {
 	}
 
 	this.update = function() {
+	var par_certo=false;
 		if (winnerMsg) return;
-		console.log( counter==2 && !data[playsmade[1]].active() );
-		if(counter==2 && !complete && !(data[playsmade[0]].active()) && !(data[playsmade[1]].active()) ){
-			complete=true;
-			if((data[playsmade[0]].equals(data[playsmade[1]]))){
-			
-			}else{
-				data[playsmade[0]].undoTile();
-				data[playsmade[1]].undoTile();
-				}
-			}
-		if(complete && !(data[playsmade[0]].active()) && !(data[playsmade[1]].active()) ){
-		counter=0;
-		complete=false;
-		}
+
 			
 		var activeAnim = false;
-		var randomplay=0;
 		for (var i = data.length; i--;) {
 			data[i].update();
 			activeAnim = activeAnim || data[i].active();
+		}
+		
+	if(counter==2 && complete && !activeAnim){
+			complete=false;
+			if((data[playsmade[0]].equals(data[playsmade[1]]))){
+			 par_certo=true;
+			}else{
+				data[playsmade[0]].undoTile();
+				data[playsmade[1]].undoTile();
+				activeAnim=true;
+				}
+			}
+		if(!complete && !activeAnim ){
+		counter=0;
+		complete=true;
+		if(par_certo){
+			pares+=1;
+			console.log(pares);
+			par_certo=false;
+			if(pares==10)
+				winner=true;
+		}
 		}
 		if (!activeAnim) {
 			if (winner) {
 			winnergb=winner;
 				if (winner === true) {
-					winnerMsg = "Paranbéns!";
+					winnerMsg = "Paranb\u00E9ns!";
+					
 				} 
 			}
 
-		} else {
-				//winner = ai.hasWinner();
-		}
+		} 
 		hastick = true;
 	}
 
@@ -146,18 +157,18 @@ function GameState(name) {
 		for (var i = data.length; i--;) {
 			data[i].draw(ctx);
 		}
-		if (winnerMsg) {
-			var s = 10, lw = 2, w = 300, h = 80;
+		if (winner) {
+			var s = 10, lw = 2, w = 500, h = 220;
 
 			w -= lw;
 			h -= lw;
 
 			ctx.save();
-			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2);
+			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2 );
 			ctx.fillStyle = "white";
 			ctx.strokeStyle = "#00ff99";
 			ctx.lineWidth = lw;
-			ctx.font = "20px Helvetica";
+			ctx.font = "50px Helvetica";
 
 			ctx.beginPath();
 			ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
@@ -171,9 +182,9 @@ function GameState(name) {
 
 			ctx.fillStyle = "#00ff99";
 			var txt = winnerMsg;
-			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 20);
+			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 50);
 			var btns  = []
-			btns.push(new EndButton("Repetir", 180, 40, function() {
+			btns.push(new EndButton("Repetir", 320, 130, function() {
 			if(!state.next){
 			 if(state.active_name=="game2"){
 			state.get("game").init();
@@ -183,16 +194,13 @@ function GameState(name) {
 				state.change("game2");
 			}
 			}
-			},30,100));
+			},60,150));
 			
-			btns.push(new EndButton("Voltar", 30, 40, function() {
+			btns.push(new EndButton("Voltar", 30, 130, function() {
 			if(!state.next){
-			if(modegb==ONE_PLAYER ){
 			state.change("menu",true);
-			}else{
-			state.change("menu");
-			}}
-			},30,100));
+			}
+			},60,150));
 			for (var i = btns.length;i--;) {
 				btns[i].draw(ctx);
 			}
@@ -244,7 +252,7 @@ function EndButton(text, x, y, cb,h,w) {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "20px Helvetica";
+		_ctx.font = "30px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -258,7 +266,7 @@ function EndButton(text, x, y, cb,h,w) {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = text;
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 20);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -267,7 +275,7 @@ function EndButton(text, x, y, cb,h,w) {
 		_ctx.stroke();
 
 		_ctx.fillStyle = "white";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 20);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
 
 		hover = new Image();
 		hover.src = _c.toDataURL();
@@ -276,8 +284,8 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+42 < x && x < this.x+this.width+42,
-			yl = this.y+152 < y && y < this.y+this.height+152;
+		var xl = this.x+212 < x && x < this.x+this.width+212,
+			yl = this.y+262 < y && y < this.y+this.height+262;
 
 		return xl && yl;
 	}
