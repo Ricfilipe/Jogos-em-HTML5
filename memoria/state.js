@@ -101,7 +101,6 @@ function GameState(name) {
 			spots.splice(aux,1);
 			data.push(new Tile(x, y,type));
 		}
-		ai= new AIPlayer(data);
 
 	}
 
