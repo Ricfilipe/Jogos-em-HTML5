@@ -108,16 +108,17 @@ function Tile(x, y,type) {
 			_ctx.lineCap = "round";
 
 			// Blank
-			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillRect(0, 0, 160, 160); 
+			
 			Tile.BLANK = new Image();
 			Tile.BLANK.src = _c.toDataURL();
+
 
 			// IM0
 			_ctx.fillStyle = "#ff6666";
 			_ctx.translate(5, 5);
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM0 = new Image();
-			Tile.IM0.src = _c.toDataURL();
+			Tile.IM0 = new Image(160,160);
+			Tile.IM0.src = "memoria/img/mqa.jpg";
 			
 			// IM1
 			_ctx.fillStyle = "#00ff99";
