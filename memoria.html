@@ -14,13 +14,14 @@
 
 </head>
 <body>
-
 <canvas id="myCanvas" width="920" height="740" >
+
 <script>
 var canvas, ctx, state, mouse = {x:0, y:0};
 window.onload = function main() {
 	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
+	
 	state = new StateManager();
 	state.add(new MenuState("menu"), new GameState("game"),new GameState("game2"));
 	state.set("menu");
@@ -36,6 +37,7 @@ function tick() {
 	window.requestAnimationFrame(tick);
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	state.tick(ctx);
+	
 }
 function mouseMove(evt) {
 	var el = evt.target;
