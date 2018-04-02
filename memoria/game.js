@@ -409,3 +409,120 @@ function Scene(width, height) {
 		_ctx.drawImage(canvas, 0, 0);
 	}
 }
+
+function Cronometro() {
+	var seg=0, min=0, start=false;
+	var timer;
+	
+	(function() {
+		var _c = document.createElement("canvas"),
+			_w = _c.width = 120,
+			_h = _c.height = 50,
+			_lw = 2,
+			s = 10;
+
+
+		_w -= _lw;
+		_h -= _lw;
+
+		var _ctx = _c.getContext("2d");
+
+		_ctx.fillStyle = "white";
+		_ctx.strokeStyle = "#00ff99";
+		_ctx.lineWidth = _lw;
+		_ctx.font = "30px Helvetica";
+
+		_ctx.translate(_lw/2, _lw/2);
+		_ctx.beginPath();
+		_ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
+		_ctx.arc(_w-s, s, s, 1.5*Math.PI, 0);
+		_ctx.arc(_w-s, _h-s, s, 0, 0.5*Math.PI);
+		_ctx.arc(s, _h-s, s, 0.5*Math.PI, Math.PI);
+		_ctx.closePath();
+		_ctx.fill();
+		_ctx.stroke();
+
+		_ctx.fillStyle = _ctx.strokeStyle;
+		var _txt = "00 : 00";
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+
+		normal = new Image();
+		normal.src = _c.toDataURL();
+
+
+	})();
+	
+	function incrementar(){
+			
+			
+			seg=seg+1;
+			if(seg==60){
+			seg=0;
+			min=min+1;
+			}
+			
+		if(min==60){
+			min=0;	
+		}
+			
+			var _c = document.createElement("canvas"),
+			_w = _c.width = 120,
+			_h = _c.height = 50,
+			_lw = 2,
+			s = 10;
+
+
+		_w -= _lw;
+		_h -= _lw;
+
+		var _ctx = _c.getContext("2d");
+
+		_ctx.fillStyle = "white";
+		_ctx.strokeStyle = "#00ff99";
+		_ctx.lineWidth = _lw;
+		_ctx.font = "30px Helvetica";
+
+		_ctx.translate(_lw/2, _lw/2);
+		_ctx.beginPath();
+		_ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
+		_ctx.arc(_w-s, s, s, 1.5*Math.PI, 0);
+		_ctx.arc(_w-s, _h-s, s, 0, 0.5*Math.PI);
+		_ctx.arc(s, _h-s, s, 0.5*Math.PI, Math.PI);
+		_ctx.closePath();
+		_ctx.fill();
+		_ctx.stroke();
+
+		_ctx.fillStyle = _ctx.strokeStyle;
+		var _txt =pad2(min)+" : "+pad2(seg);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+
+		normal = new Image();
+		normal.src = _c.toDataURL();
+	}
+
+	this.start = function(){
+		if(!start){
+		timer =  setInterval(incrementar,1000);
+		start = true;
+		}
+	}
+	
+		this.stop= function(){
+		if(start){
+		clearInterval(timer);
+		start = false;
+		}
+	}
+	
+	function pad2(number) {
+   
+     return (number < 10 ? '0' : '') + number
+   
+}
+
+	this.draw = function(ctx) {
+		
+		ctx.drawImage(normal, 408, 750);
+	}
+
+}
