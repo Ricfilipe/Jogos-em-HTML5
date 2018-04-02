@@ -118,78 +118,74 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#ff6666";
 			_ctx.translate(5, 5);
 			Tile.IM0 = new Image(160,160);
-			Tile.IM0.src = "memoria/img/mqa.jpg";
+			Tile.IM0.src = "memoria/img/forno.jpg";
 			
 			// IM1
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#ffcc66";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM1 = new Image();
-			Tile.IM1.src = _c.toDataURL();
+			Tile.IM1 = new Image(160,160);
+			Tile.IM1.src =  "memoria/img/mqa.jpg";
 
 			// IM2
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#ff0000";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM2 = new Image();
-			Tile.IM2.src = _c.toDataURL();
+			Tile.IM2 = new Image(160,160);
+			Tile.IM2.src = "memoria/img/radio.jpg";
 			
 			// IM3
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#ff33cc";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM3 = new Image();
-			Tile.IM3.src = _c.toDataURL();
+			Tile.IM3 = new Image(160,160);
+			Tile.IM3.src = "memoria/img/carro.jpg";
 			
 			// IM4
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#66ff33";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM4 = new Image();
-			Tile.IM4.src = _c.toDataURL();
+			Tile.IM4 =new Image(160,160);
+			Tile.IM4.src = "memoria/img/boneca.jpg";
 			
 			// IM5
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#00ffcc";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM5 = new Image();
-			Tile.IM5.src = _c.toDataURL();
+			Tile.IM5 = new Image(160,160);
+			Tile.IM5.src ="memoria/img/vinil.jpg";
 			
 			// IM6
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#ffffff";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM6 = new Image();
-			Tile.IM6.src = _c.toDataURL();
+			Tile.IM6 =new Image(160,160);
+			Tile.IM6.src = "memoria/img/costura.jpg";
 			
 			// IM7
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#000000";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM7 = new Image();
-			Tile.IM7.src = _c.toDataURL();
+			Tile.IM7 = new Image(160,160);;
+			Tile.IM7.src ="memoria/img/relogio.jpg";
 			
 			// IM8
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#0000cc";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM8 = new Image();
-			Tile.IM8.src = _c.toDataURL();
+			Tile.IM8 =new Image(160,160);
+			Tile.IM8.src = "memoria/img/cavalinho.jpg";
 			
 			// IM9
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#cc99ff";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM9 = new Image();
+			Tile.IM9 = new Image(160,160);
 			Tile.IM9.src = _c.toDataURL();
 			
 		})();
