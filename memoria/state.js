@@ -51,7 +51,7 @@ function GameState(name) {
 	var complete=true;
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),counter=0,
-		ctx = scene.getContext();
+		ctx = scene.getContext(),cronometro;
 	var playsmade=[];
 	var data, player, isPlayer, pares=0, mode, winner, winnerMsg, hastick;
 
@@ -75,6 +75,7 @@ function GameState(name) {
 				return;
 			}
 			if(complete){
+			cronometro.start();
 			data[idx].flip();
 			playsmade[counter]=idx;
 			counter+=1;
@@ -91,8 +92,10 @@ function GameState(name) {
 		winnergb=false;
 		winnerMsg=false;
 		hastick = false;
+		pares=0;
 		data = [];
 		counter=0;
+		cronometro=new Cronometro();
 		for (var i = 0; i < 20; i++) {
 			var x = (i % 5)*180 + 20;
 			var y = Math.floor(i/5)*180 + 20;
@@ -138,6 +141,7 @@ function GameState(name) {
 		}
 		if (!activeAnim) {
 			if (winner) {
+			cronometro.stop();
 			winnergb=winner;
 				if (winner === true) {
 					winnerMsg = "Paranb\u00E9ns!";
@@ -156,6 +160,9 @@ function GameState(name) {
 		for (var i = data.length; i--;) {
 			data[i].draw(ctx);
 		}
+		
+	
+		
 		if (winner) {
 			var s = 10, lw = 2, w = 500, h = 220;
 
@@ -205,12 +212,16 @@ function GameState(name) {
 			}
 			ctx.restore();
 		}
+		cronometro.draw(ctx);
 
 		if (_ctx) { 
 			scene.draw(_ctx);
 		} else {
 			return scene.getCanvas();
 		}
+		 
+		
+		
 	}
 }
 
@@ -284,7 +295,7 @@ function EndButton(text, x, y, cb,h,w) {
 		
 
 		var xl = this.x+212 < x && x < this.x+this.width+212,
-			yl = this.y+262 < y && y < this.y+this.height+262;
+			yl = this.y+262+30 < y && y < this.y+this.height+262+30;
 
 		return xl && yl;
 	}
