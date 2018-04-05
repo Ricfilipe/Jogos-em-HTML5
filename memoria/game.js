@@ -186,7 +186,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#cc99ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM9 = new Image(160,160);
-			Tile.IM9.src = _c.toDataURL();
+			Tile.IM9.src = "memoria/img/caneta.jpg";
 			
 		})();
 		tile = Tile.BLANK;
