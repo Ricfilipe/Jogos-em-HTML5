@@ -99,7 +99,7 @@ function Tile(x, y,type) {
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = _c.height = 160;
+			_c.width = _c.height = 100;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#00ff99";
@@ -118,7 +118,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#ff6666";
 			_ctx.translate(5, 5);
 			Tile.IM0 = new Image(160,160);
-			Tile.IM0.src = "memoria/img/forno.jpg";
+			Tile.IM0.src = "memoria/img/fundacao.jpg";
 			
 			// IM1
 			_ctx.fillStyle = "#00ff99";
@@ -129,15 +129,15 @@ function Tile(x, y,type) {
 			// IM2
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
-			Tile.IM2 = new Image(160,160);
+			Tile.IM2 = new Image(100,100);
 			Tile.IM2.src = "memoria/img/radio.jpg";
 			
 			// IM3
 			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillRect(0, 0, 100, 100);
 			_ctx.fillStyle = "#ff33cc";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM3 = new Image(160,160);
+			Tile.IM3 = new Image(100,100);
 			Tile.IM3.src = "memoria/img/carro.jpg";
 			
 			// IM4
@@ -342,7 +342,7 @@ function MenuButton(text, x, y, cb,h,w) {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "40px Helvetica";
+		_ctx.font = "30px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -356,7 +356,7 @@ function MenuButton(text, x, y, cb,h,w) {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = text;
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 50);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 40);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -365,7 +365,7 @@ function MenuButton(text, x, y, cb,h,w) {
 		_ctx.stroke();
 
 		_ctx.fillStyle = "white";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 50);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 40);
 
 		hover = new Image();
 		hover.src = _c.toDataURL();
@@ -416,8 +416,8 @@ function Cronometro() {
 	
 	(function() {
 		var _c = document.createElement("canvas"),
-			_w = _c.width = 120,
-			_h = _c.height = 50,
+			_w = _c.width = 80,
+			_h = _c.height = 30,
 			_lw = 2,
 			s = 10;
 
@@ -430,7 +430,7 @@ function Cronometro() {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "30px Helvetica";
+		_ctx.font = "20px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -444,7 +444,7 @@ function Cronometro() {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = "00 : 00";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 20);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -466,8 +466,8 @@ function Cronometro() {
 		}
 			
 			var _c = document.createElement("canvas"),
-			_w = _c.width = 120,
-			_h = _c.height = 50,
+			_w = _c.width = 80,
+			_h = _c.height = 30,
 			_lw = 2,
 			s = 10;
 
@@ -480,7 +480,7 @@ function Cronometro() {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "30px Helvetica";
+		_ctx.font = "20px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -494,7 +494,7 @@ function Cronometro() {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt =pad2(min)+" : "+pad2(seg);
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 20);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -522,7 +522,7 @@ function Cronometro() {
 
 	this.draw = function(ctx) {
 		
-		ctx.drawImage(normal, 408, 750);
+		ctx.drawImage(normal, 270, 490);
 	}
 
 }

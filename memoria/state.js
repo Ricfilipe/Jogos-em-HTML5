@@ -6,13 +6,13 @@ function MenuState(name) {
 
 	var btns = [], angle = 0, frames = 0;
 
-	var _yPos = 250;
-	btns.push(new MenuButton("Jogar", 260, _yPos, function() {
+	var _yPos = 200;
+	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
 	if(!state.next){
 		state.get("game").init();
 		state.change("game");
 		}
-	},80,400));
+	},70,200));
 
 
 
@@ -26,8 +26,8 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		ctx.save();
-		ctx.translate(460, 100);
-		ctx.font = "60px Helvetica";
+		ctx.translate(300, 80);
+		ctx.font = "50px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
@@ -53,7 +53,7 @@ function GameState(name) {
 	var scene = new Scene(canvas.width, canvas.height),counter=0,
 		ctx = scene.getContext(),cronometro;
 	var playsmade=[];
-	var data, player, isPlayer, pares=0, mode, winner, winnerMsg, hastick;
+	var data, player, isPlayer, pares, mode, winner, winnerMsg, hastick;
 
 	canvas.addEventListener("mousedown", function(evt) {
 		if (winnerMsg && (state.active_name === "game" || state.active_name === "game2" )) {
@@ -67,9 +67,9 @@ function GameState(name) {
 		
 		if(counter==2)return;
 
-		if (px % 180 >= 20 && py % 180 >= 20) {
-			var idx = Math.floor(px/180);
-			idx += Math.floor(py/180)*5;
+		if (px % 120 >= 20 && py % 120 >= 20) {
+			var idx = Math.floor(px/120);
+			idx += Math.floor(py/120)*5;
 
 			if (data[idx].hasData()) {
 				return;
@@ -88,7 +88,7 @@ function GameState(name) {
 	this.init = function( tile) {
 		var spots=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9];
 		var type=1;
-		winner=false;
+		winner=true;
 		winnergb=false;
 		winnerMsg=false;
 		hastick = false;
@@ -97,8 +97,8 @@ function GameState(name) {
 		counter=0;
 		cronometro=new Cronometro();
 		for (var i = 0; i < 20; i++) {
-			var x = (i % 5)*180 + 20;
-			var y = Math.floor(i/5)*180 + 20;
+			var x = (i % 5)*120 + 20;
+			var y = Math.floor(i/5)*120 + 20;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -144,7 +144,7 @@ function GameState(name) {
 			cronometro.stop();
 			winnergb=winner;
 				if (winner === true) {
-					winnerMsg = "Paranb\u00E9ns!";
+					winnerMsg = "Parab\u00E9ns!";
 					
 				} 
 			}
@@ -164,17 +164,17 @@ function GameState(name) {
 	
 		
 		if (winner) {
-			var s = 10, lw = 2, w = 500, h = 220;
+			var s = 10, lw = 2, w = 300, h = 200;
 
 			w -= lw;
 			h -= lw;
 
 			ctx.save();
-			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2 );
+			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2-10 );
 			ctx.fillStyle = "white";
 			ctx.strokeStyle = "#00ff99";
 			ctx.lineWidth = lw;
-			ctx.font = "50px Helvetica";
+			ctx.font = "40px Helvetica";
 
 			ctx.beginPath();
 			ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
@@ -190,7 +190,7 @@ function GameState(name) {
 			var txt = winnerMsg;
 			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 50);
 			var btns  = []
-			btns.push(new EndButton("Repetir", 320, 130, function() {
+			btns.push(new EndButton("Repetir", 200, 130, function() {
 			if(!state.next){
 			 if(state.active_name=="game2"){
 			state.get("game").init();
@@ -200,13 +200,13 @@ function GameState(name) {
 				state.change("game2");
 			}
 			}
-			},60,150));
+			},40,80));
 			
-			btns.push(new EndButton("Voltar", 30, 130, function() {
+			btns.push(new EndButton("Voltar", 20, 130, function() {
 			if(!state.next){
 			state.change("menu",true);
 			}
-			},60,150));
+			},40,80));
 			for (var i = btns.length;i--;) {
 				btns[i].draw(ctx);
 			}
@@ -262,7 +262,7 @@ function EndButton(text, x, y, cb,h,w) {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "30px Helvetica";
+		_ctx.font = "20px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -276,7 +276,7 @@ function EndButton(text, x, y, cb,h,w) {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = text;
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 25);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -285,7 +285,7 @@ function EndButton(text, x, y, cb,h,w) {
 		_ctx.stroke();
 
 		_ctx.fillStyle = "white";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 25);
 
 		hover = new Image();
 		hover.src = _c.toDataURL();
@@ -294,8 +294,8 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+212 < x && x < this.x+this.width+212,
-			yl = this.y+262+30 < y && y < this.y+this.height+262+30;
+		var xl = this.x+162 < x && x < this.x+this.width+162,
+			yl = this.y+152 < y && y < this.y+this.height+152;
 
 		return xl && yl;
 	}
