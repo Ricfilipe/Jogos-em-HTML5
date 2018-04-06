@@ -88,7 +88,7 @@ function GameState(name) {
 	this.init = function( tile) {
 		var spots=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9];
 		var type=1;
-		winner=true;
+		winner=false;
 		winnergb=false;
 		winnerMsg=false;
 		hastick = false;
