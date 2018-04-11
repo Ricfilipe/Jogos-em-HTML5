@@ -234,7 +234,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#cc99ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM14 = new Image(160,160);
-			Tile.IM14.src = "memoria/img/caneta.jpg";
+			Tile.IM14.src = "memoria/img/walkman.jpg";
 			
 			
 		})();
