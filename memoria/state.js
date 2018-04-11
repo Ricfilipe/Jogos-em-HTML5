@@ -143,7 +143,7 @@ function GameState(name) {
 			pares+=1;
 			console.log(pares);
 			par_certo=false;
-			if(pares==10)
+			if(pares==PARES_D)
 				winner=true;
 		}
 		}
