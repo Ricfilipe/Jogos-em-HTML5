@@ -1,3 +1,5 @@
+
+var tutorial=true;
 function MenuState(name) {
 
 	this.name = name;
@@ -6,13 +8,14 @@ function MenuState(name) {
 
 	var btns = [], angle = 0, frames = 0;
 
-	var _yPos = 250;
-	btns.push(new MenuButton("Jogar", 260, _yPos, function() {
+	var _yPos = 200;
+	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
 	if(!state.next){
+		tutorial=true;
 		state.get("game").init();
 		state.change("game");
 		}
-	},80,400));
+	},70,200));
 
 
 
@@ -24,12 +27,12 @@ function MenuState(name) {
 
 	this.render = function(_ctx) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+		
 		ctx.save();
-		ctx.translate(460, 100);
-		ctx.font = "60px Helvetica";
+		ctx.translate(300, 80);
+		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
-		var txt = "Jogo da Mem\u00F3ria";
+		var txt = "Jogo da Mem\u00F3ria \"Vintage\"";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
@@ -46,30 +49,29 @@ function MenuState(name) {
 }
 
 
-
 function GameState(name) {
 	var complete=true;
 	this.name = name;
-	var scene = new Scene(canvas.width, canvas.height),counter=0,
+	var scene = new Scene(canvas.width, canvas.height),counter=0,PARES_D=15,
 		ctx = scene.getContext(),cronometro;
 	var playsmade=[];
-	var data, player, isPlayer, pares=0, mode, winner, winnerMsg, hastick;
+	var data, player, isPlayer, pares, mode, winner, winnerMsg, hastick;
 
 	canvas.addEventListener("mousedown", function(evt) {
-		if (winnerMsg && (state.active_name === "game" || state.active_name === "game2" )) {
+		if (winnerMsg  &&(state.active_name === "game" || state.active_name === "game2" ) ) {
 			return;
 		}
 
 		
-		if ( winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick) return;
+		if ( winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick || tutorial ) return;
 		var px = mouse.x;
 		var py = mouse.y;
 		
 		if(counter==2)return;
 
-		if (px % 180 >= 20 && py % 180 >= 20) {
-			var idx = Math.floor(px/180);
-			idx += Math.floor(py/180)*5;
+		if (px % 105 <= 100 && py % 105 <= 100) {
+			var idx = Math.floor(px/105);
+			idx += Math.floor(py/105)*6;
 
 			if (data[idx].hasData()) {
 				return;
@@ -86,7 +88,13 @@ function GameState(name) {
 
 
 	this.init = function( tile) {
-		var spots=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9];
+		var spots=[];
+		
+		for(var i = 0; i<PARES_D;i++){
+		spots.push(i);
+		spots.push(i);
+		}
+		
 		var type=1;
 		winner=false;
 		winnergb=false;
@@ -96,9 +104,9 @@ function GameState(name) {
 		data = [];
 		counter=0;
 		cronometro=new Cronometro();
-		for (var i = 0; i < 20; i++) {
-			var x = (i % 5)*180 + 20;
-			var y = Math.floor(i/5)*180 + 20;
+		for (var i = 0; i < 30; i++) {
+			var x = (i % 6)*105;
+			var y = Math.floor(i/6)*105;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -135,7 +143,7 @@ function GameState(name) {
 			pares+=1;
 			console.log(pares);
 			par_certo=false;
-			if(pares==10)
+			if(pares==PARES_D)
 				winner=true;
 		}
 		}
@@ -144,7 +152,7 @@ function GameState(name) {
 			cronometro.stop();
 			winnergb=winner;
 				if (winner === true) {
-					winnerMsg = "Paranb\u00E9ns!";
+					winnerMsg = "Parab\u00E9ns!";
 					
 				} 
 			}
@@ -164,17 +172,17 @@ function GameState(name) {
 	
 		
 		if (winner) {
-			var s = 10, lw = 2, w = 500, h = 220;
+			var s = 10, lw = 2, w = 300, h = 200;
 
 			w -= lw;
 			h -= lw;
 
 			ctx.save();
-			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2 );
+			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2-10 );
 			ctx.fillStyle = "white";
 			ctx.strokeStyle = "#00ff99";
 			ctx.lineWidth = lw;
-			ctx.font = "50px Helvetica";
+			ctx.font = "40px Helvetica";
 
 			ctx.beginPath();
 			ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
@@ -190,7 +198,7 @@ function GameState(name) {
 			var txt = winnerMsg;
 			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 50);
 			var btns  = []
-			btns.push(new EndButton("Repetir", 320, 130, function() {
+			btns.push(new EndButton("Repetir", 200, 130, function() {
 			if(!state.next){
 			 if(state.active_name=="game2"){
 			state.get("game").init();
@@ -200,13 +208,68 @@ function GameState(name) {
 				state.change("game2");
 			}
 			}
-			},60,150));
+			},40,80));
 			
-			btns.push(new EndButton("Voltar", 30, 130, function() {
+			btns.push(new EndButton("Voltar", 20, 130, function() {
 			if(!state.next){
 			state.change("menu",true);
 			}
-			},60,150));
+			},40,80));
+			for (var i = btns.length;i--;) {
+				btns[i].draw(ctx);
+			}
+			ctx.restore();
+		}
+		
+		if (tutorial) {
+			var s = 10, lw = 2, w = 500, h = 320;
+
+			w -= lw;
+			h -= lw;
+
+			ctx.save();
+			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2-10 );
+			ctx.fillStyle = "white";
+			ctx.strokeStyle = "#00ff99";
+			ctx.lineWidth = lw;
+			ctx.font = "30px Helvetica";
+
+			ctx.beginPath();
+			ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
+			ctx.arc(w-s, s, s, 1.5*Math.PI, 0);
+			ctx.arc(w-s, h-s, s, 0, 0.5*Math.PI);
+			ctx.arc(s, h-s, s, 0.5*Math.PI, Math.PI);
+			ctx.closePath();
+
+			ctx.fill();
+			ctx.stroke();
+		
+			ctx.fillStyle = "#00ff99";
+			var txt = "Objectivo:";
+			ctx.fillText(txt, 40, 40);
+		
+			var txt = "Como Jogar:";
+			ctx.fillText(txt, 40, 120);
+			ctx.fillStyle = "#000000";
+			ctx.font = "15px Helvetica";
+			var txt = "Encontre os pares das figuras o mais r\xE1pido poss\xEDvel.";
+				ctx.fillText(txt, 40, 70)
+	
+				var line=18;
+			var txt = "Primeiro deve clicar em duas cartas. Se as imagens forem";
+				ctx.fillText(txt, 40, 150)
+				ctx.fillText("iguais, ficam voltadas para cima; se as imagens forem diferentes  ", 40, 168);
+				ctx.fillText("deve clicar novamente em duas cartas, at\u00E9 descobrir o par.", 40, 168+line);
+				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*3-10);
+				ctx.fillText("para cima.", 40, 168+line*4-10);
+			
+			var btns  = []
+			
+			btns.push(new MidButton("OK", 205, 260, function() {
+				tutorial=false;
+				
+			}
+			,40,80));
 			for (var i = btns.length;i--;) {
 				btns[i].draw(ctx);
 			}
@@ -262,7 +325,7 @@ function EndButton(text, x, y, cb,h,w) {
 		_ctx.fillStyle = "white";
 		_ctx.strokeStyle = "#00ff99";
 		_ctx.lineWidth = _lw;
-		_ctx.font = "30px Helvetica";
+		_ctx.font = "20px Helvetica";
 
 		_ctx.translate(_lw/2, _lw/2);
 		_ctx.beginPath();
@@ -276,7 +339,7 @@ function EndButton(text, x, y, cb,h,w) {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = text;
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 25);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -285,7 +348,7 @@ function EndButton(text, x, y, cb,h,w) {
 		_ctx.stroke();
 
 		_ctx.fillStyle = "white";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 35);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 25);
 
 		hover = new Image();
 		hover.src = _c.toDataURL();
@@ -294,14 +357,94 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+212 < x && x < this.x+this.width+212,
-			yl = this.y+262+30 < y && y < this.y+this.height+262+30;
+		var xl = this.x+164 < x && x < this.x+this.width+164,
+			yl = this.y+170 < y && y < this.y+this.height+170;
 
 		return xl && yl;
 	}
 
 	this.draw = function(ctx) {
 		var tile = rect.hasPoint(mouse.x, mouse.y) && (winnergb !== false)? hover : normal;
+		ctx.drawImage(tile, x, y);
+	}
+}
+
+function MidButton(text, x, y, cb,h,w) {
+
+
+	var text = text, x = x, y = y, callback = cb;
+	var hover, normal, rect = {};
+
+	canvas.addEventListener("mousedown", function(evt) {
+		if (tutorial === false ) return;
+
+		if (rect.hasPoint(mouse.x, mouse.y)) {
+			if (callback) {
+				callback();
+			}
+		}
+	}, false);
+
+	(function() {
+		var _c = document.createElement("canvas"),
+			_w = _c.width = w,
+			_h = _c.height = h,
+			_lw = 2,
+			s = 10;
+
+		rect.x = x;
+		rect.y = y;
+		rect.width = _c.width;
+		rect.height = _c.height;
+
+		_w -= _lw;
+		_h -= _lw;
+
+		var _ctx = _c.getContext("2d");
+
+		_ctx.fillStyle = "white";
+		_ctx.strokeStyle = "#00ff99";
+		_ctx.lineWidth = _lw;
+		_ctx.font = "20px Helvetica";
+
+		_ctx.translate(_lw/2, _lw/2);
+		_ctx.beginPath();
+		_ctx.arc(s, s, s, Math.PI, 1.5*Math.PI);
+		_ctx.arc(_w-s, s, s, 1.5*Math.PI, 0);
+		_ctx.arc(_w-s, _h-s, s, 0, 0.5*Math.PI);
+		_ctx.arc(s, _h-s, s, 0.5*Math.PI, Math.PI);
+		_ctx.closePath();
+		_ctx.fill();
+		_ctx.stroke();
+
+		_ctx.fillStyle = _ctx.strokeStyle;
+		var _txt = text;
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 25);
+
+		normal = new Image();
+		normal.src = _c.toDataURL();
+
+		_ctx.fill();
+		_ctx.stroke();
+
+		_ctx.fillStyle = "white";
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 25);
+
+		hover = new Image();
+		hover.src = _c.toDataURL();
+	})();
+	
+		rect.hasPoint = function(x, y) {
+		
+
+		var xl = this.x+64 < x && x < this.x+this.width+64,
+			yl = this.y+110 < y && y < this.y+this.height+110;
+
+		return xl && yl;
+	}
+
+	this.draw = function(ctx) {
+		var tile = rect.hasPoint(mouse.x, mouse.y) && (tutorial !== false)? hover : normal;
 		ctx.drawImage(tile, x, y);
 	}
 }
