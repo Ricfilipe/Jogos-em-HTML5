@@ -188,6 +188,55 @@ function Tile(x, y,type) {
 			Tile.IM9 = new Image(160,160);
 			Tile.IM9.src = "memoria/img/caneta.jpg";
 			
+			// IM9
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM9 = new Image(160,160);
+			Tile.IM9.src = "memoria/img/caneta.jpg";
+			
+			// IM10
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM10 = new Image(160,160);
+			Tile.IM10.src = "memoria/img/caneta.jpg";
+			
+			// IM11
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM11 = new Image(160,160);
+			Tile.IM11.src = "memoria/img/escudo.jpg";
+			
+			// IM12
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM12 = new Image(160,160);
+			Tile.IM12.src = "memoria/img/ferro.jpg";
+			
+			// IM13
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM13 = new Image(160,160);
+			Tile.IM13.src = "memoria/img/couto.jpg";
+			
+			// IM14
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM14 = new Image(160,160);
+			Tile.IM14.src = "memoria/img/caneta.jpg";
+			
+			
 		})();
 		tile = Tile.BLANK;
 	
@@ -224,6 +273,22 @@ function Tile(x, y,type) {
 			break;
 		case 9:
 			this.hidden_t=Tile.IM9;
+			break;
+		case 10:
+			this.hidden_t=Tile.IM10;
+			break;
+		case 11:
+			this.hidden_t=Tile.IM11;
+			break;
+		case 12:
+			this.hidden_t=Tile.IM12;
+			break;
+		case 13:
+			this.hidden_t=Tile.IM13;
+			break;
+		case 14:
+			this.hidden_t=Tile.IM14;
+			break;
 		}
 
 	this.undoTile = function(){
@@ -522,7 +587,7 @@ function Cronometro() {
 
 	this.draw = function(ctx) {
 		
-		ctx.drawImage(normal, 270, 490);
+		ctx.drawImage(normal, 270, 525);
 	}
 
 }
