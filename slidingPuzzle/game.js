@@ -92,7 +92,8 @@ function Tile(x, y,type,image) {
 	this.hidden_t;
 	var x = x, y = y;
 	var undo = false;
-	var tile ;
+	var  tile ;
+	this.type=type;
 	var anim = 0;
 
 	
@@ -113,194 +114,13 @@ function Tile(x, y,type,image) {
 			Tile.BLANK = new Image();
 			Tile.BLANK.src = _c.toDataURL();
 
-
-			// IM0
-			_ctx.fillStyle = "#ff6666";
-			Tile.IM0 = new Image(150,150);
-			Tile.IM0.src = "memoria/img/mqa.jpg";
-		
-			
-			// IM1
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			Tile.IM1 = new Image(160,160);
-			Tile.IM1.src =  "memoria/img/mqa.jpg";
-
-			// IM2
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			Tile.IM2 = new Image(150,150);
-			Tile.IM2.src = "memoria/img/radio.jpg";
-			
-			// IM3
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 100, 100);
-			_ctx.fillStyle = "#ff33cc";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM3 = new Image(100,100);
-			Tile.IM3.src = "memoria/img/carro.jpg";
-			
-			// IM4
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#66ff33";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM4 =new Image(160,160);
-			Tile.IM4.src = "memoria/img/boneca.jpg";
-			
-			// IM5
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#00ffcc";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM5 = new Image(150,150);
-			Tile.IM5.src ="memoria/img/vinil.jpg";
-			
-			// IM6
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#ffffff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM6 =new Image(160,160);
-			Tile.IM6.src = "memoria/img/costura.jpg";
-			
-			// IM7
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#000000";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM7 = new Image(160,160);;
-			Tile.IM7.src ="memoria/img/relogio.jpg";
-			
-			// IM8
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#0000cc";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM8 =new Image(160,160);
-			Tile.IM8.src = "memoria/img/cavalinho.jpg";
-			
-			// IM9
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM9 = new Image(160,160);
-			Tile.IM9.src = "memoria/img/caneta.jpg";
-			
-			// IM9
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM9 = new Image(160,160);
-			Tile.IM9.src = "memoria/img/caneta.jpg";
-			
-			// IM10
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM10 = new Image(160,160);
-			Tile.IM10.src = "memoria/img/caneta.jpg";
-			
-			// IM11
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM11 = new Image(160,160);
-			Tile.IM11.src = "memoria/img/escudo.jpg";
-			
-			// IM12
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM12 = new Image(160,160);
-			Tile.IM12.src = "memoria/img/ferro.jpg";
-			
-			// IM13
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM13 = new Image(160,160);
-			Tile.IM13.src = "memoria/img/couto.jpg";
-			
-			// IM14
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM14 = new Image(160,160);
-			Tile.IM14.src = "memoria/img/walkman.jpg";
-			
-						// IM15
-			_ctx.fillStyle = "#00ff99";
-			_ctx.fillRect(0, 0, 160, 160);
-			_ctx.fillStyle = "#cc99ff";
-			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM15 = new Image(160,160);
-			Tile.IM15.src = "memoria/img/walkman.jpg";
-			
+			Tile.img = new Image(525,525);
+			Tile.img.src = "slidingPuzzle/img/teste.jpg";
 		})();
+		
 	
-	switch(type){
-		case 0:
-			tile=Tile.BLANK;
-			break;
-		case 1:
-			tile=Tile.IM0;
-			break;
-		case 2:
-			tile=Tile.IM1;
-			break;
-		case 3:
-			tile=Tile.IM2;
-			break;
-		case 4:
-			tile=Tile.IM3;
-			break;
-		case 5:
-			tile=Tile.IM4;
-			break;
-		case 6:
-			tile=Tile.IM5;
-			break;
-		case 7:
-			tile=Tile.IM6;
-			break;
-		case 8:
-			tile=Tile.IM7;
-			break;
-		case 9:
-			tile=Tile.IM8;
-			break;
-		case 10:
-			tile=Tile.IM9;
-			break;
-		case 11:
-			tile=Tile.IM10;
-			break;
-		case 12:
-			tile=Tile.IM11;
-			break;
-		case 13:
-			tile=Tile.IM12;
-			break;
-		case 14:
-			tile=Tile.IM13;
-			break;
-		case 15:
-			tile=Tile.IM14;
-			break;
-		case 16:
-			tile=Tile.IM15;
-			break;
 		}
-
-		}
+	
 	
 	
 	
@@ -331,10 +151,17 @@ function Tile(x, y,type,image) {
 		tile = next;
 	}
 
-	this.flip = function() {
-		undo=false;
-		tile = this.hidden_t;
-		anim = 1;
+	this.flip = function( empty_pos,  idx,tile_empty) {
+		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+4 || empty_pos==idx-4){
+		tile_empty.type=this.type;
+		this.type=0;
+		
+		//anim = 1; TODO
+		return true;
+		}
+		else{
+		return false;
+		}
 	}
 
 	this.update = function() {
@@ -345,7 +172,12 @@ function Tile(x, y,type,image) {
 
 	this.draw = function(ctx) {
 		if (anim <= 0||anim>1) {
-			ctx.drawImage(tile, x, y);
+			if(this.type==0){
+			
+				ctx.drawImage(Tile.BLANK, x, y);
+				return;
+			}
+			ctx.drawImage(Tile.img,130*((this.type-1)%4),130*Math.floor((this.type-1)/4),125,125,x,y,125,125);
 			return;
 		}
 		
