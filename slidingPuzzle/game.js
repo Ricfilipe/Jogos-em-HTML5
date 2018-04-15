@@ -88,18 +88,18 @@ function StateManager() {
 	}
 }
 
-function Tile(x, y,type) {
+function Tile(x, y,type,image) {
 	this.hidden_t;
-
 	var x = x, y = y;
 	var undo = false;
-	var tile = Tile.BLANK;
+	var tile ;
 	var anim = 0;
 
+	
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = _c.height = 100;
+			_c.width = _c.height = 125;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#00ff99";
@@ -116,9 +116,9 @@ function Tile(x, y,type) {
 
 			// IM0
 			_ctx.fillStyle = "#ff6666";
-			_ctx.translate(5, 5);
-			Tile.IM0 = new Image(160,160);
-			Tile.IM0.src = "memoria/img/fundacao.jpg";
+			Tile.IM0 = new Image(150,150);
+			Tile.IM0.src = "memoria/img/mqa.jpg";
+		
 			
 			// IM1
 			_ctx.fillStyle = "#00ff99";
@@ -129,7 +129,7 @@ function Tile(x, y,type) {
 			// IM2
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
-			Tile.IM2 = new Image(100,100);
+			Tile.IM2 = new Image(150,150);
 			Tile.IM2.src = "memoria/img/radio.jpg";
 			
 			// IM3
@@ -153,7 +153,7 @@ function Tile(x, y,type) {
 			_ctx.fillRect(0, 0, 160, 160);
 			_ctx.fillStyle = "#00ffcc";
 			_ctx.fillRect(0, 0, 150, 150);
-			Tile.IM5 = new Image(160,160);
+			Tile.IM5 = new Image(150,150);
 			Tile.IM5.src ="memoria/img/vinil.jpg";
 			
 			// IM6
@@ -186,9 +186,16 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#cc99ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM9 = new Image(160,160);
-			Tile.IM9.src = "memoria/img/forno.jpg";
+			Tile.IM9.src = "memoria/img/caneta.jpg";
 			
-
+			// IM9
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM9 = new Image(160,160);
+			Tile.IM9.src = "memoria/img/caneta.jpg";
+			
 			// IM10
 			_ctx.fillStyle = "#00ff99";
 			_ctx.fillRect(0, 0, 160, 160);
@@ -229,60 +236,75 @@ function Tile(x, y,type) {
 			Tile.IM14 = new Image(160,160);
 			Tile.IM14.src = "memoria/img/walkman.jpg";
 			
+						// IM15
+			_ctx.fillStyle = "#00ff99";
+			_ctx.fillRect(0, 0, 160, 160);
+			_ctx.fillStyle = "#cc99ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM15 = new Image(160,160);
+			Tile.IM15.src = "memoria/img/walkman.jpg";
 			
 		})();
-		tile = Tile.BLANK;
-	
-	
-	}
 	
 	switch(type){
 		case 0:
-			this.hidden_t=Tile.IM0;
+			tile=Tile.BLANK;
 			break;
 		case 1:
-			this.hidden_t=Tile.IM1;
+			tile=Tile.IM0;
 			break;
 		case 2:
-			this.hidden_t=Tile.IM2;
+			tile=Tile.IM1;
 			break;
 		case 3:
-			this.hidden_t=Tile.IM3;
+			tile=Tile.IM2;
 			break;
 		case 4:
-			this.hidden_t=Tile.IM4;
+			tile=Tile.IM3;
 			break;
 		case 5:
-			this.hidden_t=Tile.IM5;
+			tile=Tile.IM4;
 			break;
 		case 6:
-			this.hidden_t=Tile.IM6;
+			tile=Tile.IM5;
 			break;
 		case 7:
-			this.hidden_t=Tile.IM7;
+			tile=Tile.IM6;
 			break;
 		case 8:
-			this.hidden_t=Tile.IM8;
+			tile=Tile.IM7;
 			break;
 		case 9:
-			this.hidden_t=Tile.IM9;
+			tile=Tile.IM8;
 			break;
 		case 10:
-			this.hidden_t=Tile.IM10;
+			tile=Tile.IM9;
 			break;
 		case 11:
-			this.hidden_t=Tile.IM11;
+			tile=Tile.IM10;
 			break;
 		case 12:
-			this.hidden_t=Tile.IM12;
+			tile=Tile.IM11;
 			break;
 		case 13:
-			this.hidden_t=Tile.IM13;
+			tile=Tile.IM12;
 			break;
 		case 14:
-			this.hidden_t=Tile.IM14;
+			tile=Tile.IM13;
+			break;
+		case 15:
+			tile=Tile.IM14;
+			break;
+		case 16:
+			tile=Tile.IM15;
 			break;
 		}
+
+		}
+	
+	
+	
+		
 
 	this.undoTile = function(){
 		anim = 2;
