@@ -92,8 +92,8 @@ function Tile(x, y,type,image) {
 	this.hidden_t;
 	var x = x, y = y;
 	var undo = false;
-	var tile ;
-	var type=type;
+	var  tile ;
+	this.type=type;
 	var anim = 0;
 
 	
@@ -151,10 +151,17 @@ function Tile(x, y,type,image) {
 		tile = next;
 	}
 
-	this.flip = function() {
-		undo=false;
-		tile = this.hidden_t;
-		anim = 1;
+	this.flip = function( empty_pos,  idx,tile_empty) {
+		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+4 || empty_pos==idx-4){
+		tile_empty.type=this.type;
+		this.type=0;
+		
+		//anim = 1; TODO
+		return true;
+		}
+		else{
+		return false;
+		}
 	}
 
 	this.update = function() {
@@ -165,11 +172,12 @@ function Tile(x, y,type,image) {
 
 	this.draw = function(ctx) {
 		if (anim <= 0||anim>1) {
-			if(type==0){
+			if(this.type==0){
+			
 				ctx.drawImage(Tile.BLANK, x, y);
 				return;
 			}
-			ctx.drawImage(Tile.img,130*((type-1)%4),130*Math.floor((type-1)/4),125,125,x,y,125,125);
+			ctx.drawImage(Tile.img,130*((this.type-1)%4),130*Math.floor((this.type-1)/4),125,125,x,y,125,125);
 			return;
 		}
 		

@@ -67,26 +67,27 @@ function GameState(name) {
 		if (winnerMsg  &&(state.active_name === "game" || state.active_name === "game2" ) ) {
 			return;
 		}
-
 		
 		if ( winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick || tutorial ) return;
 		var px = mouse.x;
 		var py = mouse.y;
 		
-		if(counter==2)return;
+		
+		
 
 		if (px % 130 <= 125 && py % 130 <= 125) {
 			var idx = Math.floor(px/130);
 			idx += Math.floor(py/130)*4;
 
-			if (data[idx].hasData()) {
-				return;
-			}
+
+			
 			if(complete){
+			if(data[idx].flip(empty_pos,idx,data[empty_pos])){
+			tabuleiro[empty_pos]=tabuleiro[idx];
+			tabuleiro[idx]=0;
+			empty_pos=idx;
 			cronometro.start();
-			data[idx].flip();
-			playsmade[counter]=idx;
-			counter+=1;
+			}
 			}
 
 		}
