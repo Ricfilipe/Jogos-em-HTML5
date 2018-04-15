@@ -133,29 +133,23 @@ function GameState(name) {
 			activeAnim = activeAnim || data[i].active();
 		}
 		
-	if(counter==2 && complete && !activeAnim){
-			complete=false;
-			if((data[playsmade[0]].equals(data[playsmade[1]]))){
-			 par_certo=true;
-			}else{
-				data[playsmade[0]].undoTile();
-				data[playsmade[1]].undoTile();
-				activeAnim=true;
-				}
+		if(!activeAnim ){
+		winner=true;
+		
+			for (var j = tabuleiro.length-1; j--;) {
+					console.log(tabuleiro[1]);
+				if(tabuleiro[j]!=0 &&tabuleiro[j]!=j+1) {
+					winner=false;
+
+					break;
 			}
-		if(!complete && !activeAnim ){
-		counter=0;
-		complete=true;
-		if(par_certo){
-			pares+=1;
-			console.log(pares);
-			par_certo=false;
-			if(pares==PARES_D)
-				winner=true;
+			}
+		
 		}
-		}
+		
 		if (!activeAnim) {
 			if (winner) {
+			console.log("winner");
 			cronometro.stop();
 			winnergb=winner;
 				if (winner === true) {
@@ -167,6 +161,7 @@ function GameState(name) {
 		} 
 		hastick = true;
 	}
+	
 
 	this.render = function(_ctx) {
 
