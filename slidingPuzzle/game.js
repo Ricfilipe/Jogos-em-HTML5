@@ -153,6 +153,8 @@ function Tile(x, y,type,image) {
 
 	this.flip = function( empty_pos,  idx,tile_empty) {
 		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+4 || empty_pos==idx-4){
+		if((empty_pos==idx+1 && empty_pos%4!=(idx%4)+1 ) || (empty_pos%4!=(idx%4)-1 && empty_pos==idx-1))
+		{return false;}
 		tile_empty.type=this.type;
 		this.type=0;
 		

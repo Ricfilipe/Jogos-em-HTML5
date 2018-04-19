@@ -111,8 +111,9 @@ function GameState(name) {
 		data = [];
 		counter=0;
 		cronometro=new Cronometro();
-		empty_pos = Math.floor((Math.random() * 16));
+		empty_pos = 15;
 		tabuleiro[empty_pos]=0
+		this.prepararTabuleiro(tabuleiro);
 		for (var i = 0; i < 16; i++) {
 			var x = (i % 4)*130;
 			var y = Math.floor(i/4)*130;
@@ -136,8 +137,7 @@ function GameState(name) {
 		if(!activeAnim ){
 		winner=true;
 		
-			for (var j = tabuleiro.length-1; j--;) {
-					console.log(tabuleiro[1]);
+			for (var j = tabuleiro.length; j--;) {
 				if(tabuleiro[j]!=0 &&tabuleiro[j]!=j+1) {
 					winner=false;
 
@@ -287,6 +287,27 @@ function GameState(name) {
 		 
 		
 		
+	}
+	
+	this.prepararTabuleiro=function(tabuleiro){
+		var movimentos=[-1,4,-4];
+		var aux;
+		var mov_done=1;
+		for(var i = 15; i>0;){
+			aux=Math.floor(Math.random()*movimentos.length);
+			aux=movimentos[aux];
+			if(empty_pos+aux>=0 && empty_pos+aux<16){
+				if((aux == 1 || aux ==-1) && empty_pos%4+aux <0 && empty_pos%4+aux >5){continue;}
+				movimentos.push(mov_done);
+				mov_done=movimentos.indexOf(-aux);
+				mov_done=movimentos.splice(mov_done,1)[0];
+				console.log(mov_done);
+				tabuleiro[empty_pos]=tabuleiro[empty_pos+aux];
+				tabuleiro[empty_pos+aux]=0;
+				empty_pos=empty_pos+aux;	
+				i--;
+			}
+		}
 	}
 }
 
