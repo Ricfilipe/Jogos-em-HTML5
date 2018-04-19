@@ -1,6 +1,9 @@
 
 var tutorial=true;
 var image="teste.jpg";
+var dificuldade = ["F\341cil","Normal","Dif\355cil"];
+var dificuldade_num = [2,3,4];
+var idx_dif=1;
 
 function MenuState(name) {
 
@@ -10,14 +13,27 @@ function MenuState(name) {
 
 	var btns = [], angle = 0, frames = 0;
 
-	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 170, _yPos, function() {
+	var _yPos = 150;
+	btns.push(new MenuButton("Jogar", 150, _yPos+140, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
 		state.change("game");
 		}
-	},70,200));
+	},70,240));
+	
+		btns.push(new MenuButton("\u25c0", 150, _yPos+60, function() {
+	if(!state.next){
+		idx_dif--;
+		if(idx_dif<0)
+			idx_dif=dificuldade.length-1;
+		}
+	},60,60));
+			btns.push(new MenuButton("	\u25b6", 330, _yPos+60, function() {
+	if(!state.next){
+		idx_dif=(++idx_dif)%3;
+		}
+	},60,60));
 
 
 
@@ -35,6 +51,15 @@ function MenuState(name) {
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Quebra-Cabe\xE7as Deslizante";
+		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
+		
+		ctx.translate(50, 100);
+		ctx.font = "25px Helvetica";
+		ctx.fillText("Selecione dificuldade:", -ctx.measureText(txt).width/2, 18);
+		
+		ctx.translate(-40, 50);
+		ctx.font = "30px Helvetica";
+		var txt = dificuldade[idx_dif];
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
@@ -61,7 +86,8 @@ function GameState(name) {
 	var data, player, isPlayer, pares, mode, winner, winnerMsg, hastick;
 	var tabuleiro;
 	var empty_pos;
-	
+	var sizeTile;
+	var size;
 	
 	canvas.addEventListener("mousedown", function(evt) {
 		if (winnerMsg  &&(state.active_name === "game" || state.active_name === "game2" ) ) {
@@ -75,9 +101,9 @@ function GameState(name) {
 		
 		
 
-		if (px % 130 <= 125 && py % 130 <= 125) {
-			var idx = Math.floor(px/130);
-			idx += Math.floor(py/130)*4;
+		if (px % sizeTile <= size	 && py % sizeTile <= size) {
+			var idx = Math.floor(px/sizeTile);
+			idx += Math.floor(py/sizeTile)*dificuldade_num[idx_dif];
 
 
 			
@@ -95,13 +121,26 @@ function GameState(name) {
 
 
 	this.init = function( tile) {
-		var spots=[];
+		tabuleiro=[];
+		switch(dificuldade_num[idx_dif]){
+		case 2:
+			sizeTile=260;
+			size=255;
 		
-		for(var i = 0; i<PARES_D;i++){
-		spots.push(i);
-		spots.push(i);
+			break;
+		case 3:
+			sizeTile=173;
+			size=168;
+			break;
+		case 4:
+			sizeTile=130;
+			size=125;
+		break;
 		}
-		tabuleiro=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+
+			
+		for(var j= 0; j<dificuldade_num[idx_dif]*dificuldade_num[idx_dif];j++)	
+			tabuleiro.push(j+1);
 		var type=1;
 		winner=false;
 		winnergb=false;
@@ -111,13 +150,15 @@ function GameState(name) {
 		data = [];
 		counter=0;
 		cronometro=new Cronometro();
-		empty_pos = 15;
-		tabuleiro[empty_pos]=0
+		empty_pos = dificuldade_num[idx_dif]*dificuldade_num[idx_dif]-1;
+		tabuleiro[empty_pos]=0;
+			
 		this.prepararTabuleiro(tabuleiro);
-		for (var i = 0; i < 16; i++) {
-			var x = (i % 4)*130;
-			var y = Math.floor(i/4)*130;
-			data.push(new Tile(x, y,tabuleiro[i],image));
+		console.log(tabuleiro);
+		for (var i = 0; i < tabuleiro.length; i++) {
+			var x = (i % dificuldade_num[idx_dif])*sizeTile;
+			var y = Math.floor(i/dificuldade_num[idx_dif])*sizeTile;
+			data.push(new Tile(x, y,tabuleiro[i],image,size));
 		
 		}
 
@@ -164,7 +205,6 @@ function GameState(name) {
 	
 
 	this.render = function(_ctx) {
-
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		for (var i = data.length; i--;) {
@@ -300,14 +340,14 @@ function GameState(name) {
 	}
 	
 	this.prepararTabuleiro=function(tabuleiro){
-		var movimentos=[-1,4,-4];
+		var movimentos=[-1,dificuldade_num[idx_dif],-dificuldade_num[idx_dif]];
 		var aux;
 		var mov_done=1;
-		for(var i = 15; i>0;){
+		for(var i = 4*dificuldade_num[idx_dif]; i>0;){
 			aux=Math.floor(Math.random()*movimentos.length);
 			aux=movimentos[aux];
-			if(empty_pos+aux>=0 && empty_pos+aux<16){
-				if((aux == 1 || aux ==-1) && empty_pos%4+aux <0 && empty_pos%4+aux >5){continue;}
+			if(empty_pos+aux>=0 && empty_pos+aux<tabuleiro.length){
+				if((aux == 1 || aux ==-1) && (empty_pos%dificuldade_num[idx_dif]+aux <0 || empty_pos%dificuldade_num[idx_dif]+aux >dificuldade_num[idx_dif]-1)){continue;}
 				movimentos.push(mov_done);
 				mov_done=movimentos.indexOf(-aux);
 				mov_done=movimentos.splice(mov_done,1)[0];
