@@ -11,7 +11,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
+	btns.push(new MenuButton("Jogar", 170, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -31,10 +31,10 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(300, 80);
+		ctx.translate(260, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
-		var txt = "Jogo da Mem\u00F3ria \"Vintage\"";
+		var txt = "Quebra-Cabe\xE7as Deslizante";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
@@ -245,25 +245,35 @@ function GameState(name) {
 
 			ctx.fill();
 			ctx.stroke();
-		
+			var start_text=40;
+			var title=30;
+			var line=18;
+			var n_linhas=0;
+			var n_title =0;
+			
 			ctx.fillStyle = "#00ff99";
 			var txt = "Objectivo:";
-			ctx.fillText(txt, 40, 40);
-		
-			var txt = "Como Jogar:";
-			ctx.fillText(txt, 40, 120);
+			ctx.fillText(txt, 40, start_text+title*(n_title++));
+			
 			ctx.fillStyle = "#000000";
 			ctx.font = "15px Helvetica";
-			var txt = "Encontre os pares das figuras o mais r\xE1pido poss\xEDvel.";
-				ctx.fillText(txt, 40, 70)
-	
-				var line=18;
-			var txt = "Primeiro deve clicar em duas cartas. Se as imagens forem";
-				ctx.fillText(txt, 40, 150)
-				ctx.fillText("iguais, ficam voltadas para cima; se as imagens forem diferentes  ", 40, 168);
-				ctx.fillText("deve clicar novamente em duas cartas, at\u00E9 descobrir o par.", 40, 168+line);
-				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*3-10);
-				ctx.fillText("para cima.", 40, 168+line*4-10);
+			var txt = "Organizar as pe\xE7as de forma a obter uma imagem, o  mais ";
+			ctx.fillText(txt, 40, start_text+title*n_title+line*(n_linhas++));
+			ctx.fillText("r\xE1pido poss\xEDvel.", 40, start_text+title*n_title+line*(n_linhas++))
+			
+			ctx.font = "30px Helvetica";
+			ctx.fillStyle = "#00ff99";
+			n_title++;
+			var txt = "Como Jogar:";
+			ctx.fillText(txt, 40,  start_text+title*(n_title++)+line*(n_linhas));
+			
+			ctx.fillStyle = "#000000";
+			ctx.font = "15px Helvetica";
+			var txt = "Apenas pode movimentar as pe\xE7as adjacentes \xE0 pe\xE7a em branco.";
+				ctx.fillText(txt, 40, start_text+title*n_title+line*(n_linhas++))
+				ctx.fillText("Para movimentar a pe\xE7a, carrega-se na pe\xE7a que se quer", 40, start_text+title*n_title+line*(n_linhas++));
+				ctx.fillText("movimentar.", 40, start_text+title*n_title+line*(n_linhas++));
+				ctx.fillText("Deve repetir este processo at\xE9 obter uma imagem.", 40, start_text+title*n_title+line*(n_linhas++));
 			
 			var btns  = []
 			
@@ -380,7 +390,7 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+164 < x && x < this.x+this.width+164,
+		var xl = this.x+109 < x && x < this.x+this.width+109,
 			yl = this.y+170 < y && y < this.y+this.height+170;
 
 		return xl && yl;
@@ -460,7 +470,7 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+64 < x && x < this.x+this.width+64,
+		var xl = this.x+9		< x && x < this.x+this.width+9,
 			yl = this.y+110 < y && y < this.y+this.height+110;
 
 		return xl && yl;
