@@ -88,19 +88,19 @@ function StateManager() {
 	}
 }
 
-function Tile(x, y,type,image) {
+function Tile(x, y,type,image,size) {
 	this.hidden_t;
 	var x = x, y = y;
 	var undo = false;
 	var  tile ;
 	this.type=type;
 	var anim = 0;
-
+	var size=size;
 	
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = _c.height = 125;
+			_c.width = _c.height = size;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#00ff99";
@@ -109,7 +109,7 @@ function Tile(x, y,type,image) {
 			_ctx.lineCap = "round";
 
 			// Blank
-			_ctx.fillRect(0, 0, 160, 160); 
+			_ctx.fillRect(0, 0, size, size); 
 			
 			Tile.BLANK = new Image();
 			Tile.BLANK.src = _c.toDataURL();
@@ -152,8 +152,8 @@ function Tile(x, y,type,image) {
 	}
 
 	this.flip = function( empty_pos,  idx,tile_empty) {
-		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+4 || empty_pos==idx-4){
-		if((empty_pos==idx+1 && empty_pos%4!=(idx%4)+1 ) || (empty_pos%4!=(idx%4)-1 && empty_pos==idx-1))
+		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+dificuldade_num[idx_dif] || empty_pos==idx-dificuldade_num[idx_dif]){
+		if((empty_pos==idx+1 && empty_pos%dificuldade_num[idx_dif]!=(idx%dificuldade_num[idx_dif])+1 ) || (empty_pos%dificuldade_num[idx_dif]!=(idx%dificuldade_num[idx_dif])-1 && empty_pos==idx-1))
 		{return false;}
 		tile_empty.type=this.type;
 		this.type=0;
@@ -179,7 +179,7 @@ function Tile(x, y,type,image) {
 				ctx.drawImage(Tile.BLANK, x, y);
 				return;
 			}
-			ctx.drawImage(Tile.img,130*((this.type-1)%4),130*Math.floor((this.type-1)/4),125,125,x,y,125,125);
+			ctx.drawImage(Tile.img,(size+5)*((this.type-1)%dificuldade_num[idx_dif]),(size+5)*Math.floor((this.type-1)/dificuldade_num[idx_dif]),size,size,x,y,size,size);
 			return;
 		}
 		
