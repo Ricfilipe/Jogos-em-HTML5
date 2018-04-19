@@ -11,7 +11,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
+	btns.push(new MenuButton("Jogar", 170, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -31,10 +31,10 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(300, 80);
+		ctx.translate(260, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
-		var txt = "Jogo da Mem\u00F3ria \"Vintage\"";
+		var txt = "Quebra-Cabe\xE7as Deslizante";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
@@ -111,8 +111,9 @@ function GameState(name) {
 		data = [];
 		counter=0;
 		cronometro=new Cronometro();
-		empty_pos = Math.floor((Math.random() * 16));
+		empty_pos = 15;
 		tabuleiro[empty_pos]=0
+		this.prepararTabuleiro(tabuleiro);
 		for (var i = 0; i < 16; i++) {
 			var x = (i % 4)*130;
 			var y = Math.floor(i/4)*130;
@@ -133,29 +134,22 @@ function GameState(name) {
 			activeAnim = activeAnim || data[i].active();
 		}
 		
-	if(counter==2 && complete && !activeAnim){
-			complete=false;
-			if((data[playsmade[0]].equals(data[playsmade[1]]))){
-			 par_certo=true;
-			}else{
-				data[playsmade[0]].undoTile();
-				data[playsmade[1]].undoTile();
-				activeAnim=true;
-				}
+		if(!activeAnim ){
+		winner=true;
+		
+			for (var j = tabuleiro.length; j--;) {
+				if(tabuleiro[j]!=0 &&tabuleiro[j]!=j+1) {
+					winner=false;
+
+					break;
 			}
-		if(!complete && !activeAnim ){
-		counter=0;
-		complete=true;
-		if(par_certo){
-			pares+=1;
-			console.log(pares);
-			par_certo=false;
-			if(pares==PARES_D)
-				winner=true;
+			}
+		
 		}
-		}
+		
 		if (!activeAnim) {
 			if (winner) {
+			console.log("winner");
 			cronometro.stop();
 			winnergb=winner;
 				if (winner === true) {
@@ -167,6 +161,7 @@ function GameState(name) {
 		} 
 		hastick = true;
 	}
+	
 
 	this.render = function(_ctx) {
 
@@ -250,25 +245,35 @@ function GameState(name) {
 
 			ctx.fill();
 			ctx.stroke();
-		
+			var start_text=40;
+			var title=30;
+			var line=18;
+			var n_linhas=0;
+			var n_title =0;
+			
 			ctx.fillStyle = "#00ff99";
 			var txt = "Objectivo:";
-			ctx.fillText(txt, 40, 40);
-		
-			var txt = "Como Jogar:";
-			ctx.fillText(txt, 40, 120);
+			ctx.fillText(txt, 40, start_text+title*(n_title++));
+			
 			ctx.fillStyle = "#000000";
 			ctx.font = "15px Helvetica";
-			var txt = "Encontre os pares das figuras o mais r\xE1pido poss\xEDvel.";
-				ctx.fillText(txt, 40, 70)
-	
-				var line=18;
-			var txt = "Primeiro deve clicar em duas cartas. Se as imagens forem";
-				ctx.fillText(txt, 40, 150)
-				ctx.fillText("iguais, ficam voltadas para cima; se as imagens forem diferentes  ", 40, 168);
-				ctx.fillText("deve clicar novamente em duas cartas, at\u00E9 descobrir o par.", 40, 168+line);
-				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*3-10);
-				ctx.fillText("para cima.", 40, 168+line*4-10);
+			var txt = "Organizar as pe\xE7as de forma a obter uma imagem, o  mais ";
+			ctx.fillText(txt, 40, start_text+title*n_title+line*(n_linhas++));
+			ctx.fillText("r\xE1pido poss\xEDvel.", 40, start_text+title*n_title+line*(n_linhas++))
+			
+			ctx.font = "30px Helvetica";
+			ctx.fillStyle = "#00ff99";
+			n_title++;
+			var txt = "Como Jogar:";
+			ctx.fillText(txt, 40,  start_text+title*(n_title++)+line*(n_linhas));
+			
+			ctx.fillStyle = "#000000";
+			ctx.font = "15px Helvetica";
+			var txt = "Apenas pode movimentar as pe\xE7as adjacentes \xE0 pe\xE7a em branco.";
+				ctx.fillText(txt, 40, start_text+title*n_title+line*(n_linhas++))
+				ctx.fillText("Para movimentar a pe\xE7a, carrega-se na pe\xE7a que se quer", 40, start_text+title*n_title+line*(n_linhas++));
+				ctx.fillText("movimentar.", 40, start_text+title*n_title+line*(n_linhas++));
+				ctx.fillText("Deve repetir este processo at\xE9 obter uma imagem.", 40, start_text+title*n_title+line*(n_linhas++));
 			
 			var btns  = []
 			
@@ -292,6 +297,27 @@ function GameState(name) {
 		 
 		
 		
+	}
+	
+	this.prepararTabuleiro=function(tabuleiro){
+		var movimentos=[-1,4,-4];
+		var aux;
+		var mov_done=1;
+		for(var i = 15; i>0;){
+			aux=Math.floor(Math.random()*movimentos.length);
+			aux=movimentos[aux];
+			if(empty_pos+aux>=0 && empty_pos+aux<16){
+				if((aux == 1 || aux ==-1) && empty_pos%4+aux <0 && empty_pos%4+aux >5){continue;}
+				movimentos.push(mov_done);
+				mov_done=movimentos.indexOf(-aux);
+				mov_done=movimentos.splice(mov_done,1)[0];
+				console.log(mov_done);
+				tabuleiro[empty_pos]=tabuleiro[empty_pos+aux];
+				tabuleiro[empty_pos+aux]=0;
+				empty_pos=empty_pos+aux;	
+				i--;
+			}
+		}
 	}
 }
 
@@ -364,7 +390,7 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+164 < x && x < this.x+this.width+164,
+		var xl = this.x+109 < x && x < this.x+this.width+109,
 			yl = this.y+170 < y && y < this.y+this.height+170;
 
 		return xl && yl;
@@ -444,7 +470,7 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+64 < x && x < this.x+this.width+64,
+		var xl = this.x+9		< x && x < this.x+this.width+9,
 			yl = this.y+110 < y && y < this.y+this.height+110;
 
 		return xl && yl;

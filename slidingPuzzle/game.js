@@ -153,6 +153,8 @@ function Tile(x, y,type,image) {
 
 	this.flip = function( empty_pos,  idx,tile_empty) {
 		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+4 || empty_pos==idx-4){
+		if((empty_pos==idx+1 && empty_pos%4!=(idx%4)+1 ) || (empty_pos%4!=(idx%4)-1 && empty_pos==idx-1))
+		{return false;}
 		tile_empty.type=this.type;
 		this.type=0;
 		
@@ -356,7 +358,7 @@ function Cronometro() {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt = "00 : 00";
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 20);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 22);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -406,7 +408,7 @@ function Cronometro() {
 
 		_ctx.fillStyle = _ctx.strokeStyle;
 		var _txt =pad2(min)+" : "+pad2(seg);
-		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 20);
+		_ctx.fillText(_txt, (_w - _ctx.measureText(_txt).width)/2, 22);
 
 		normal = new Image();
 		normal.src = _c.toDataURL();
@@ -434,7 +436,7 @@ function Cronometro() {
 
 	this.draw = function(ctx) {
 		
-		ctx.drawImage(normal, 270, 525);
+		ctx.drawImage(normal, 215, 525);
 	}
 
 }
