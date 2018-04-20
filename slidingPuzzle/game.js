@@ -96,6 +96,7 @@ function Tile(x, y,type,image,size) {
 	this.type=type;
 	var anim = 0;
 	var size=size;
+	var imagem=image;
 	
 	if (tile == null) {
 		(function() {
@@ -115,7 +116,7 @@ function Tile(x, y,type,image,size) {
 			Tile.BLANK.src = _c.toDataURL();
 
 			Tile.img = new Image(525,525);
-			Tile.img.src = "slidingPuzzle/img/teste.jpg";
+			Tile.img.src = "slidingPuzzle/img/"+image;
 		})();
 		
 	

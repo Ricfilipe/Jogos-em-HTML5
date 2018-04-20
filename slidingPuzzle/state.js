@@ -122,6 +122,8 @@ function GameState(name) {
 
 	this.init = function( tile) {
 		tabuleiro=[];
+		var imagens=["teste.jpg","estatuas.jpg","estatua2.jpg","barcos.jpg","barco2.jpg","lisboa.jpg","belem.jpg","praia.jpg","rio.jpg","moinho.jpg","ponte.jpg","descobrimentos.jpg","convento.jpg"];
+		image=imagens[Math.floor(Math.random()*imagens.length)];
 		switch(dificuldade_num[idx_dif]){
 		case 2:
 			sizeTile=260;
