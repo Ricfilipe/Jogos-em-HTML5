@@ -1,7 +1,7 @@
 
 var tutorial=true;
 var image="teste.jpg";
-var dificuldade = ["F\341cil","Normal","Dif\355cil"];
+var dificuldade = ["2 x 2","3 x 3","4 x 4"];
 var dificuldade_num = [2,3,4];
 var idx_dif=1;
 
@@ -14,7 +14,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 150;
-	btns.push(new MenuButton("Jogar", 150, _yPos+140, function() {
+	btns.push(new MenuButton("Jogar", 150, _yPos+60, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -22,14 +22,14 @@ function MenuState(name) {
 		}
 	},70,240));
 	
-		btns.push(new MenuButton("\u25c0", 150, _yPos+60, function() {
+		btns.push(new MenuButton("\u25c0", 150, _yPos+140, function() {
 	if(!state.next){
 		idx_dif--;
 		if(idx_dif<0)
 			idx_dif=dificuldade.length-1;
 		}
 	},60,60));
-			btns.push(new MenuButton("	\u25b6", 330, _yPos+60, function() {
+			btns.push(new MenuButton("	\u25b6", 330, _yPos+140, function() {
 	if(!state.next){
 		idx_dif=(++idx_dif)%3;
 		}
@@ -53,11 +53,7 @@ function MenuState(name) {
 		var txt = "Quebra-Cabe\xE7as Deslizante";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		
-		ctx.translate(50, 100);
-		ctx.font = "25px Helvetica";
-		ctx.fillText("Selecione dificuldade:", -ctx.measureText(txt).width/2, 18);
-		
-		ctx.translate(-40, 50);
+		ctx.translate(10, 230);
 		ctx.font = "30px Helvetica";
 		var txt = dificuldade[idx_dif];
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
@@ -122,6 +118,8 @@ function GameState(name) {
 
 	this.init = function( tile) {
 		tabuleiro=[];
+		var imagens=["teste.jpg","estatuas.jpg","estatua2.jpg","barcos.jpg","barco2.jpg","lisboa.jpg","belem.jpg","praia.jpg","rio.jpg","moinho.jpg","ponte.jpg","descobrimentos.jpg","convento.jpg"];
+		image=imagens[Math.floor(Math.random()*imagens.length)];
 		switch(dificuldade_num[idx_dif]){
 		case 2:
 			sizeTile=260;
@@ -222,7 +220,7 @@ function GameState(name) {
 			ctx.save();
 			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2-10 );
 			ctx.fillStyle = "white";
-			ctx.strokeStyle = "#00ff99";
+			ctx.strokeStyle = "#3366ff";
 			ctx.lineWidth = lw;
 			ctx.font = "40px Helvetica";
 
@@ -236,7 +234,7 @@ function GameState(name) {
 			ctx.fill();
 			ctx.stroke();
 
-			ctx.fillStyle = "#00ff99";
+			ctx.fillStyle = "#3366ff";
 			var txt = winnerMsg;
 			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 50);
 			var btns  = []
@@ -272,7 +270,7 @@ function GameState(name) {
 			ctx.save();
 			ctx.translate((canvas.width - w + lw)/2, (canvas.height - h + lw)/2-10 );
 			ctx.fillStyle = "white";
-			ctx.strokeStyle = "#00ff99";
+			ctx.strokeStyle = "#3366ff";
 			ctx.lineWidth = lw;
 			ctx.font = "30px Helvetica";
 
@@ -291,7 +289,7 @@ function GameState(name) {
 			var n_linhas=0;
 			var n_title =0;
 			
-			ctx.fillStyle = "#00ff99";
+			ctx.fillStyle = "#3366ff";
 			var txt = "Objectivo:";
 			ctx.fillText(txt, 40, start_text+title*(n_title++));
 			
@@ -302,7 +300,7 @@ function GameState(name) {
 			ctx.fillText("r\xE1pido poss\xEDvel.", 40, start_text+title*n_title+line*(n_linhas++))
 			
 			ctx.font = "30px Helvetica";
-			ctx.fillStyle = "#00ff99";
+			ctx.fillStyle = "#3366ff";
 			n_title++;
 			var txt = "Como Jogar:";
 			ctx.fillText(txt, 40,  start_text+title*(n_title++)+line*(n_linhas));
@@ -396,7 +394,7 @@ function EndButton(text, x, y, cb,h,w) {
 		var _ctx = _c.getContext("2d");
 
 		_ctx.fillStyle = "white";
-		_ctx.strokeStyle = "#00ff99";
+		_ctx.strokeStyle = "#3366ff";
 		_ctx.lineWidth = _lw;
 		_ctx.font = "20px Helvetica";
 
@@ -476,7 +474,7 @@ function MidButton(text, x, y, cb,h,w) {
 		var _ctx = _c.getContext("2d");
 
 		_ctx.fillStyle = "white";
-		_ctx.strokeStyle = "#00ff99";
+		_ctx.strokeStyle = "#3366ff";
 		_ctx.lineWidth = _lw;
 		_ctx.font = "20px Helvetica";
 

@@ -96,6 +96,7 @@ function Tile(x, y,type,image,size) {
 	this.type=type;
 	var anim = 0;
 	var size=size;
+	var imagem=image;
 	
 	if (tile == null) {
 		(function() {
@@ -103,7 +104,7 @@ function Tile(x, y,type,image,size) {
 			_c.width = _c.height = size;
 			var _ctx = _c.getContext("2d");
 
-			_ctx.fillStyle = "#00ff99";
+			_ctx.fillStyle = "#3366ff";
 			_ctx.lineWidth = 10;
 			_ctx.strokeStyle = "#ff6666";
 			_ctx.lineCap = "round";
@@ -115,7 +116,7 @@ function Tile(x, y,type,image,size) {
 			Tile.BLANK.src = _c.toDataURL();
 
 			Tile.img = new Image(525,525);
-			Tile.img.src = "slidingPuzzle/img/teste.jpg";
+			Tile.img.src = "slidingPuzzle/img/"+image;
 		})();
 		
 	
@@ -254,7 +255,7 @@ function MenuButton(text, x, y, cb,h,w) {
 		var _ctx = _c.getContext("2d");
 
 		_ctx.fillStyle = "white";
-		_ctx.strokeStyle = "#00ff99";
+		_ctx.strokeStyle = "#3366ff";
 		_ctx.lineWidth = _lw;
 		_ctx.font = "30px Helvetica";
 
@@ -342,7 +343,7 @@ function Cronometro() {
 		var _ctx = _c.getContext("2d");
 
 		_ctx.fillStyle = "white";
-		_ctx.strokeStyle = "#00ff99";
+		_ctx.strokeStyle = "#3366ff";
 		_ctx.lineWidth = _lw;
 		_ctx.font = "20px Helvetica";
 
@@ -392,7 +393,7 @@ function Cronometro() {
 		var _ctx = _c.getContext("2d");
 
 		_ctx.fillStyle = "white";
-		_ctx.strokeStyle = "#00ff99";
+		_ctx.strokeStyle = "#3366ff";
 		_ctx.lineWidth = _lw;
 		_ctx.font = "20px Helvetica";
 
