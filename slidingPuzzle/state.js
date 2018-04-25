@@ -84,13 +84,15 @@ function GameState(name) {
 	var empty_pos;
 	var sizeTile;
 	var size;
+	var activeAnim = false;
+	
 	
 	canvas.addEventListener("mousedown", function(evt) {
 		if (winnerMsg  &&(state.active_name === "game" || state.active_name === "game2" ) ) {
 			return;
 		}
 		
-		if ( winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick || tutorial ) return;
+		if ( winner || (state.active_name !== "game" && state.active_name !== "game2" ) || !hastick || tutorial || activeAnim ) return;
 		var px = mouse.x;
 		var py = mouse.y;
 		
@@ -118,13 +120,12 @@ function GameState(name) {
 
 	this.init = function( tile) {
 		tabuleiro=[];
-		var imagens=["teste.jpg","estatuas.jpg","estatua2.jpg","barcos.jpg","barco2.jpg","lisboa.jpg","belem.jpg","praia.jpg","rio.jpg","moinho.jpg","ponte.jpg","descobrimentos.jpg","convento.jpg"];
+		var imagens=["teste.jpg","estatuas.jpg","estatua2.jpg","barcos.jpg","barco2.jpg","lisboa.jpg","belem.jpg","praia.jpg","rio.jpg","moinho.jpg","ponte.jpg","descobrimentos.jpg","covento.jpg"];
 		image=imagens[Math.floor(Math.random()*imagens.length)];
 		switch(dificuldade_num[idx_dif]){
 		case 2:
 			sizeTile=260;
 			size=255;
-		
 			break;
 		case 3:
 			sizeTile=173;
@@ -136,7 +137,7 @@ function GameState(name) {
 		break;
 		}
 
-			
+		console.log(this.name);
 		for(var j= 0; j<dificuldade_num[idx_dif]*dificuldade_num[idx_dif];j++)	
 			tabuleiro.push(j+1);
 		var type=1;
@@ -166,12 +167,13 @@ function GameState(name) {
 	var par_certo=false;
 		if (winnerMsg) return;
 
-			
-		var activeAnim = false;
+			activeAnim = false;
 		for (var i = data.length; i--;) {
 			data[i].update();
 			activeAnim = activeAnim || data[i].active();
-		}
+
+			}
+
 		
 		if(!activeAnim ){
 		winner=true;
@@ -239,7 +241,7 @@ function GameState(name) {
 			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 50);
 			var btns  = []
 			btns.push(new EndButton("Repetir", 200, 130, function() {
-			if(!state.next){
+			if(!state.next&& (state.active_name=="game2" || state.active_name=="game" )){
 			 if(state.active_name=="game2"){
 			state.get("game").init();
 			state.change("game");
@@ -251,7 +253,7 @@ function GameState(name) {
 			},40,80));
 			
 			btns.push(new EndButton("Voltar", 20, 130, function() {
-			if(!state.next){
+			if(!state.next && (state.active_name=="game2" || state.active_name=="game" )){
 			state.change("menu",true);
 			}
 			},40,80));

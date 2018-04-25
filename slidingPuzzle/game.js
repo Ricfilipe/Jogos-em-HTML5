@@ -35,7 +35,7 @@ function StateManager() {
 				
 				active.update();
 				state[this.next].update();
-
+				
 				var c1 = active.render(),
 					c2 = state[this.next].render(),
 
@@ -84,19 +84,21 @@ function StateManager() {
 		} else {
 			active.update();
 			active.render(ctx);
+			
 		}
 	}
 }
 
-function Tile(x, y,type,image,size) {
+function Tile(x, y,type,imaget,size) {
 	this.hidden_t;
 	var x = x, y = y;
 	var undo = false;
 	var  tile ;
 	this.type=type;
 	var anim = 0;
+	var aux;
 	var size=size;
-	var imagem=image;
+	var imagem=imaget;
 	
 	if (tile == null) {
 		(function() {
@@ -115,8 +117,8 @@ function Tile(x, y,type,image,size) {
 			Tile.BLANK = new Image();
 			Tile.BLANK.src = _c.toDataURL();
 
-			Tile.img = new Image(525,525);
-			Tile.img.src = "slidingPuzzle/img/"+image;
+			tile = new Image(525,525);
+			tile.src = "slidingPuzzle/img/"+imagem;
 		})();
 		
 	
@@ -148,9 +150,12 @@ function Tile(x, y,type,image,size) {
 		return tile !== Tile.BLANK;
 	}
 
-	this.set = function(next) {
-		tile = next;
+	this.set = function(next,posx,posy) {
+		anim = next;
+		aux=[posx,posy];
 	}
+	
+
 
 	this.flip = function( empty_pos,  idx,tile_empty) {
 		if(empty_pos==idx+1 || empty_pos==idx-1 || empty_pos==idx+dificuldade_num[idx_dif] || empty_pos==idx-dificuldade_num[idx_dif]){
@@ -158,8 +163,8 @@ function Tile(x, y,type,image,size) {
 		{return false;}
 		tile_empty.type=this.type;
 		this.type=0;
-		
-		//anim = 1; TODO
+		anim = 0.7;
+		tile_empty.set(0.7,x,y);
 		return true;
 		}
 		else{
@@ -174,43 +179,24 @@ function Tile(x, y,type,image,size) {
 	}
 
 	this.draw = function(ctx) {
-		if (anim <= 0||anim>1) {
+		if (anim <= 0.18||anim>1) {
 			if(this.type==0){
-			
 				ctx.drawImage(Tile.BLANK, x, y);
 				return;
 			}
-			ctx.drawImage(Tile.img,(size+5)*((this.type-1)%dificuldade_num[idx_dif]),(size+5)*Math.floor((this.type-1)/dificuldade_num[idx_dif]),size,size,x,y,size,size);
+			ctx.drawImage(tile,(size+5)*((this.type-1)%dificuldade_num[idx_dif]),(size+5)*Math.floor((this.type-1)/dificuldade_num[idx_dif]),size,size,x,y,size,size);
 			return;
 		}
 		
-		if(undo==true && anim >0){
-		tile=Tile.BLANK;
-		}
-		
-		var res = 2;
-		if(!undo){
-		var t = anim > 0.5 ? Tile.BLANK : tile;
-		}else{
-		var t = anim > 0.5 ? this.hidden_t : tile;
-		}
-		var p = -Math.abs(2*anim - 1) + 1;
-
-		p *= p;
-
-		for (var i = 0; i < 160; i += res) {
-			if(!undo){
-				var j = 50 - (anim > 0.5 ? 160 - i : i);
-			}else{
-			var j = 50 - (anim > 0.5 ? i: 160 - i );
-			}
+		if( anim >0){
+			if(this.type==0)
+			return;
 			
-			ctx.drawImage(t, i, 0, res, 160,
-				x + i - p*i + 50*p,
-				y - j*p*0.2,
-				res,
-				160 + j*p*0.4
-			);
+			if(anim>0.18)
+			ctx.drawImage(Tile.BLANK, x, y);
+			ctx.drawImage(Tile.BLANK, aux[0], aux[1]);
+			ctx.drawImage(tile,(size+5)*((this.type-1)%dificuldade_num[idx_dif]),(size+5)*Math.floor((this.type-1)/dificuldade_num[idx_dif]),size,size,x-((anim-0.2)/0.5)*(x-aux[0]),y-((anim-0.2)/0.5)*(y-aux[1]),size,size);
+			
 		}
 	}
 	
