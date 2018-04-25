@@ -165,7 +165,7 @@ function GameState(name) {
 
 	this.update = function() {
 	var par_certo=false;
-		if (winnerMsg) return;
+		
 
 			activeAnim = false;
 		for (var i = data.length; i--;) {
@@ -173,7 +173,8 @@ function GameState(name) {
 			activeAnim = activeAnim || data[i].active();
 
 			}
-
+		
+		if (winnerMsg) return;
 		
 		if(!activeAnim ){
 		winner=true;
@@ -181,11 +182,9 @@ function GameState(name) {
 			for (var j = tabuleiro.length; j--;) {
 				if(tabuleiro[j]!=0 &&tabuleiro[j]!=j+1) {
 					winner=false;
-
 					break;
 			}
 			}
-		
 		}
 		
 		if (!activeAnim) {
@@ -193,6 +192,8 @@ function GameState(name) {
 			console.log("winner");
 			cronometro.stop();
 			winnergb=winner;
+			data[0].setWinAnim();
+			activeAnim = true;
 				if (winner === true) {
 					winnerMsg = "Parab\u00E9ns!";
 					
@@ -213,7 +214,7 @@ function GameState(name) {
 		
 	
 		
-		if (winner) {
+		if (winner && !activeAnim) {
 			var s = 10, lw = 2, w = 300, h = 200;
 
 			w -= lw;

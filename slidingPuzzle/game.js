@@ -99,6 +99,7 @@ function Tile(x, y,type,imaget,size) {
 	var aux;
 	var size=size;
 	var imagem=imaget;
+	var win=false;
 	
 	if (tile == null) {
 		(function() {
@@ -155,6 +156,12 @@ function Tile(x, y,type,imaget,size) {
 		aux=[posx,posy];
 	}
 	
+		this.setWinAnim = function() {
+		anim = 2;
+		win=true
+	}
+	
+	
 
 
 	this.flip = function( empty_pos,  idx,tile_empty) {
@@ -179,7 +186,14 @@ function Tile(x, y,type,imaget,size) {
 	}
 
 	this.draw = function(ctx) {
-		if (anim <= 0.18||anim>1) {
+				if(win && anim < 1.8){ 	
+			console.log("teste");
+			ctx.drawImage(tile,0,0,515,515);
+			return;
+		}
+		
+		if (anim <= 0.18 || anim >1) {
+
 			if(this.type==0){
 				ctx.drawImage(Tile.BLANK, x, y);
 				return;
@@ -188,9 +202,12 @@ function Tile(x, y,type,imaget,size) {
 			return;
 		}
 		
+			
+	
 		if( anim >0){
 			if(this.type==0)
 			return;
+			
 			
 			if(anim>0.18)
 			ctx.drawImage(Tile.BLANK, x, y);
