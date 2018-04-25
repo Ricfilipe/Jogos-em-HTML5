@@ -107,7 +107,7 @@ function Tile(x, y,type,imaget,size) {
 			_c.width = _c.height = size;
 			var _ctx = _c.getContext("2d");
 
-			_ctx.fillStyle = "#3366ff";
+			_ctx.fillStyle = "#ccd9ff";
 			_ctx.lineWidth = 10;
 			_ctx.strokeStyle = "#ff6666";
 			_ctx.lineCap = "round";
