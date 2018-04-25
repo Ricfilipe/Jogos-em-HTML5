@@ -199,7 +199,7 @@ function GameState(name) {
 			ctx.fillText(txt, w/2 -ctx.measureText(txt).width/2, 50);
 			var btns  = []
 			btns.push(new EndButton("Repetir", 200, 130, function() {
-			if(!state.next){
+			if(!state.next && (state.active_name=="game2" || state.active_name=="game" )){
 			 if(state.active_name=="game2"){
 			state.get("game").init();
 			state.change("game");
@@ -211,7 +211,7 @@ function GameState(name) {
 			},40,80));
 			
 			btns.push(new EndButton("Voltar", 20, 130, function() {
-			if(!state.next){
+			if(!state.next &&  (state.active_name=="game2" || state.active_name=="game" )){
 			state.change("menu",true);
 			}
 			},40,80));
