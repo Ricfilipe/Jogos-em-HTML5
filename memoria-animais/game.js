@@ -99,8 +99,8 @@ function Tile(x, y,type) {
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = 110;
-			_c.height = 72;
+			_c.width = 75;
+			_c.height = 50;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#cce6ff";
@@ -275,7 +275,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM22 = new Image(160,160);
-			Tile.IM22.src = "memoria-animais/img/urso.jpg";
+			Tile.IM22.src = "memoria-animais/img/urso.png";
 			
 			// IM23
 
@@ -662,7 +662,7 @@ function Cronometro() {
 
 	this.draw = function(ctx) {
 		
-		ctx.drawImage(normal, 415, 470);
+		ctx.drawImage(normal, 275, 330);
 	}
 
 }

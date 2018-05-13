@@ -8,8 +8,8 @@ function MenuState(name) {
 
 	var btns = [], angle = 0, frames = 0;
 
-	var _yPos = 210;
-	btns.push(new MenuButton("Jogar", 320, _yPos, function() {
+	var _yPos = 200;
+	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -29,7 +29,7 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(430, 80);
+		ctx.translate(310, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
@@ -72,9 +72,9 @@ function GameState(name) {
 		
 		if(counter==2)return;
 
-		if (px % 115 <= 110 && py % 77 <= 72) {
-			var idx = Math.floor(px/115);
-			idx += Math.floor(py/77)*8;
+		if (px % 80 <= 75 && py % 55 <= 50) {
+			var idx = Math.floor(px/80);
+			idx += Math.floor(py/55)*8;
 
 			if (data[idx].hasData()) {
 				return;
@@ -108,8 +108,8 @@ function GameState(name) {
 		counter=0;
 		cronometro=new Cronometro();
 		for (var i = 0; i < PARES_D*2; i++) {
-			var x = (i % 8)*115;
-			var y = Math.floor(i/8)*77;
+			var x = (i % 8)*80;
+			var y = Math.floor(i/8)*55;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -225,7 +225,7 @@ function GameState(name) {
 		}
 		
 		if (tutorial) {
-			var s = 10, lw = 2, w = 500, h = 320;
+			var s = 10, lw = 2, w = 500, h = 290;
 
 			w -= lw;
 			h -= lw;
@@ -268,7 +268,7 @@ function GameState(name) {
 			
 			var btns  = []
 			
-			btns.push(new MidButton("OK", 205, 260, function() {
+			btns.push(new MidButton("OK", 205, 240, function() {
 				tutorial=false;
 				
 			}
@@ -360,8 +360,8 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+309 < x && x < this.x+this.width+309,
-			yl = this.y+142 < y && y < this.y+this.height+142;
+		var xl = this.x+169 < x && x < this.x+this.width+169,
+			yl = this.y+71 < y && y < this.y+this.height+71;
 
 		return xl && yl;
 	}
@@ -440,8 +440,8 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+209 < x && x < this.x+this.width+209,
-			yl = this.y+82 < y && y < this.y+this.height+82;
+		var xl = this.x+68 < x && x < this.x+this.width+68,
+			yl = this.y+27	 < y && y < this.y+this.height+27;
 
 		return xl && yl;
 	}
