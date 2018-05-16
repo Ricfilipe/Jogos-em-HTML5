@@ -9,7 +9,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
+	btns.push(new MenuButton("Jogar", 210, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -34,7 +34,7 @@ function MenuState(name) {
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
-		ctx.translate(60, 40);
+		ctx.translate(55, 40);
 		ctx.font = "30px Helvetica";
 		ctx.fillText("Elefantes", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
