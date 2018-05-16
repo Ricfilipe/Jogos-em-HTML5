@@ -36,7 +36,7 @@ function MenuState(name) {
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.translate(40, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("Associacao", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("Associa\xE7\xE3o", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
 		for (var i = btns.length;i--;) {
@@ -260,10 +260,12 @@ function GameState(name) {
 				var line=18;
 			var txt = "Primeiro deve clicar em duas cartas. Se as imagens forem";
 				ctx.fillText(txt, 40, 150)
-				ctx.fillText("iguais, ficam voltadas para cima; se as imagens forem diferentes  ", 40, 168);
-				ctx.fillText("deve clicar novamente em duas cartas, at\u00E9 descobrir o par.", 40, 168+line);
-				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*3-10);
-				ctx.fillText("para cima.", 40, 168+line*4-10);
+				ctx.fillText("relacionadas, ficam voltadas para cima; se as imagens forem  ", 40, 168);
+				ctx.fillText("n\xE3o forem relacionadas deve clicar novamente em duas cartas,", 40, 168+line);
+				ctx.fillText("at\u00E9 descobrir o par.", 40, 168+line*2);
+				
+				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*4-10);
+				ctx.fillText("para cima.", 40, 168+line*5-10);
 			
 			var btns  = []
 			
