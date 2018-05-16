@@ -36,7 +36,7 @@ function MenuState(name) {
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
 		ctx.translate(0, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("A Volta do Mundo", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("\xC1 Volta do Mundo", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
 		for (var i = btns.length;i--;) {
