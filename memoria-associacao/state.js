@@ -34,9 +34,9 @@ function MenuState(name) {
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
-		ctx.translate(40, 40);
+		ctx.translate(-10, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("Associa\xE7\xE3o", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("Mem\u00F3ria aos pares", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
 		for (var i = btns.length;i--;) {
