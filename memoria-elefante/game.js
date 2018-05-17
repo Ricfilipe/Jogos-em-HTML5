@@ -99,8 +99,8 @@ function Tile(x, y,type) {
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = 100;
-			_c.height = 70;
+			_c.width = 113;
+			_c.height = 79;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#cce6ff";
@@ -604,7 +604,7 @@ function Cronometro() {
 
 	this.draw = function(ctx) {
 		
-		ctx.drawImage(normal, 275, 460);
+		ctx.drawImage(normal, 310, 510);
 	}
 
 }

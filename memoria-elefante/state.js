@@ -9,7 +9,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 210, _yPos, function() {
+	btns.push(new MenuButton("Jogar", 240, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -29,14 +29,14 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(310, 80);
+		ctx.translate(340, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
-		ctx.translate(55, 40);
+		ctx.translate(-20, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("Elefantes", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("Mem\u00F3ria de Elefante", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
 		for (var i = btns.length;i--;) {
@@ -72,9 +72,9 @@ function GameState(name) {
 		
 		if(counter==2)return;
 
-		if (px % 105 <= 100 && py % 75 <= 70) {
-			var idx = Math.floor(px/105);
-			idx += Math.floor(py/75)*6;
+		if (px % 118 <= 113 && py % 84 <= 79) {
+			var idx = Math.floor(px/118);
+			idx += Math.floor(py/84)*6;
 
 			if (data[idx].hasData()) {
 				return;
@@ -108,8 +108,8 @@ function GameState(name) {
 		counter=0;
 		cronometro=new Cronometro();
 		for (var i = 0; i < PARES_D*2; i++) {
-			var x = (i % 6)*105;
-			var y = Math.floor(i/6)*75;
+			var x = (i % 6)*118;
+			var y = Math.floor(i/6)*84;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -360,8 +360,8 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+164 < x && x < this.x+this.width+164,
-			yl = this.y+136 < y && y < this.y+this.height+136;
+		var xl = this.x+205 < x && x < this.x+this.width+205,
+			yl = this.y+168 < y && y < this.y+this.height+168;
 
 		return xl && yl;
 	}
@@ -440,8 +440,8 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+63 < x && x < this.x+this.width+63,
-			yl = this.y+76	 < y && y < this.y+this.height+76;
+		var xl = this.x+105 < x && x < this.x+this.width+105,
+			yl = this.y+108	 < y && y < this.y+this.height+108;
 
 		return xl && yl;
 	}

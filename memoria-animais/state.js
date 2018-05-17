@@ -9,7 +9,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
+	btns.push(new MenuButton("Jogar", 380, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -29,14 +29,14 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(310, 80);
+		ctx.translate(480, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
-		ctx.translate(60, 40);
+		ctx.translate(25, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("Animais", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("Animais \xE0 solta", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 
 		for (var i = btns.length;i--;) {
@@ -72,9 +72,9 @@ function GameState(name) {
 		
 		if(counter==2)return;
 
-		if (px % 80 <= 75 && py % 55 <= 50) {
-			var idx = Math.floor(px/80);
-			idx += Math.floor(py/55)*8;
+		if (px % 121 <= 116 && py % 82 <= 77) {
+			var idx = Math.floor(px/121);
+			idx += Math.floor(py/82)*8;
 
 			if (data[idx].hasData()) {
 				return;
@@ -103,13 +103,13 @@ function GameState(name) {
 		winnergb=false;
 		winnerMsg=false;
 		hastick = false;
-		pares=0;
+		pares=0;	
 		data = [];
 		counter=0;
 		cronometro=new Cronometro();
 		for (var i = 0; i < PARES_D*2; i++) {
-			var x = (i % 8)*80;
-			var y = Math.floor(i/8)*55;
+			var x = (i % 8)*121;
+			var y = Math.floor(i/8)*82;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -360,8 +360,8 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+169 < x && x < this.x+this.width+169,
-			yl = this.y+71 < y && y < this.y+this.height+71;
+		var xl = this.x+340 < x && x < this.x+this.width+340,
+			yl = this.y+171 < y && y < this.y+this.height+171;
 
 		return xl && yl;
 	}
@@ -440,8 +440,8 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+68 < x && x < this.x+this.width+68,
-			yl = this.y+27	 < y && y < this.y+this.height+27;
+		var xl = this.x+240 < x && x < this.x+this.width+240,
+			yl = this.y+125	 < y && y < this.y+this.height+125;
 
 		return xl && yl;
 	}
