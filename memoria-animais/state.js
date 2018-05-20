@@ -4,7 +4,7 @@ function MenuState(name) {
 
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),
-		ctx = scene.getContext();
+		ctx = scene.getContext(),logo=new Logo();
 
 	var btns = [], angle = 0, frames = 0;
 
@@ -38,6 +38,7 @@ function MenuState(name) {
 		ctx.font = "30px Helvetica";
 		ctx.fillText("Animais \xE0 solta", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
+		logo.draw(ctx);
 
 		for (var i = btns.length;i--;) {
 			btns[i].draw(ctx);

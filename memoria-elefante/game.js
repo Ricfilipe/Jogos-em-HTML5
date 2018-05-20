@@ -112,7 +112,7 @@ function Tile(x, y,type) {
 			_ctx.fillRect(0, 0, 160, 160); 
 			
 			Tile.BLANK = new Image();
-			Tile.BLANK.src = _c.toDataURL();
+			Tile.BLANK.src = "memoria-elefante/img/hidden.png";;
 
 
 			// IM0
@@ -605,6 +605,30 @@ function Cronometro() {
 	this.draw = function(ctx) {
 		
 		ctx.drawImage(normal, 310, 510);
+	}
+
+}
+
+function Logo() {
+	var logo;
+ 
+	(function() {
+		var _c = document.createElement("canvas"),
+			_w = _c.width = 100,
+			_h = _c.height = 100;
+
+
+		logo = new Image();
+		logo.src = "memoria-elefante/img/logo.png";
+
+
+	})();
+	
+
+
+	this.draw = function(ctx) {
+		
+		ctx.drawImage(logo, 600, 400);
 	}
 
 }
