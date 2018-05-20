@@ -113,75 +113,75 @@ function Tile(x, y,type) {
 			_ctx.fillRect(0, 0, 160, 160); 
 			
 			Tile.BLANK = new Image();
-			Tile.BLANK.src =  "memoria-associacao/img/hidden.png";
+			Tile.BLANK.src =  "memoria-associacao2/img/hidden.png";
 
 
 			// IM0
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.translate(5, 5);
 			Tile.IM0 = new Image(160,160);
-			Tile.IM0.src = "memoria-associacao/img/borboleta1.png";
+			Tile.IM0.src = "memoria-associacao2/img/fsjd1.png";
 			
 			// IM1
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 160, 160);
 			Tile.IM1 = new Image(160,160);
-			Tile.IM1.src =  "memoria-associacao/img/borboleta2.png";
+			Tile.IM1.src =  "memoria-associacao2/img/fsjd2.png";
 
 			// IM2
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 160, 160);
 			Tile.IM2 = new Image(100,100);
-			Tile.IM2.src = "memoria-associacao/img/cafe1.png";
+			Tile.IM2.src = "memoria-associacao2/img/laranja1.png";
 			
 			// IM3
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM3 = new Image(100,100);
-			Tile.IM3.src = "memoria-associacao/img/cafe2.png";
+			Tile.IM3.src = "memoria-associacao2/img/laranja2.png";
 			
 			// IM4
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM4 =new Image(160,160);
-			Tile.IM4.src = "memoria-associacao/img/carro1.png";
+			Tile.IM4.src = "memoria-associacao2/img/leite1.png";
 			
 			// IM5
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM5 = new Image(160,160);
-			Tile.IM5.src ="memoria-associacao/img/carro2.png";
+			Tile.IM5.src ="memoria-associacao2/img/leite2.png";
 			
 			// IM6
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM6 =new Image(160,160);
-			Tile.IM6.src = "memoria-associacao/img/cartas1.png";
+			Tile.IM6.src = "memoria-associacao2/img/limao1.png";
 			
 			// IM7
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM7 = new Image(160,160);;
-			Tile.IM7.src ="memoria-associacao/img/cartas2.png";
+			Tile.IM7.src ="memoria-associacao2/img/limao2.png";
 			
 			// IM8
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM8 =new Image(160,160);
-			Tile.IM8.src = "memoria-associacao/img/cesto1.png";
+			Tile.IM8.src = "memoria-associacao2/img/mel1.png";
 			
 			// IM9
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM9 = new Image(160,160);
-			Tile.IM9.src = "memoria-associacao/img/cesto2.png";
+			Tile.IM9.src = "memoria-associacao2/img/mel2.png";
 			
 
 			// IM10
@@ -189,138 +189,138 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM10 = new Image(160,160);
-			Tile.IM10.src = "memoria-associacao/img/chuva1.png";
+			Tile.IM10.src = "memoria-associacao2/img/morangos1.png";
 			
 			// IM11
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM11 = new Image(160,160);
-			Tile.IM11.src = "memoria-associacao/img/chuva2.png";
+			Tile.IM11.src = "memoria-associacao2/img/morangos2.png";
 			
 			// IM12
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM12 = new Image(160,160);
-			Tile.IM12.src = "memoria-associacao/img/cisne1.png";
+			Tile.IM12.src = "memoria-associacao2/img/natal1.png";
 			
 			// IM13
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM13 = new Image(160,160);
-			Tile.IM13.src = "memoria-associacao/img/cisne2.png";
+			Tile.IM13.src = "memoria-associacao2/img/natal2.png";
 			
 			// IM14
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM14 = new Image(160,160);
-			Tile.IM14.src = "memoria-associacao/img/coelho1.png";
+			Tile.IM14.src = "memoria-associacao2/img/ovos1.png";
 			
 			// IM15
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM15 = new Image(160,160);
-			Tile.IM15.src = "memoria-associacao/img/coelho2.png";
+			Tile.IM15.src = "memoria-associacao2/img/ovos2.png";
 			
 			// IM16
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM16 = new Image(160,160);
-			Tile.IM16.src = "memoria-associacao/img/dancar1.png";
+			Tile.IM16.src = "memoria-associacao2/img/pato1.png";
 			
 			// IM17
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM17 = new Image(160,160);
-			Tile.IM17.src = "memoria-associacao/img/dancar2.png";
+			Tile.IM17.src = "memoria-associacao2/img/pato2.png";
 			
 			// IM18
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM18 = new Image(160,160);
-			Tile.IM18.src = "memoria-associacao/img/desenhar1.png";
+			Tile.IM18.src = "memoria-associacao2/img/peixe1.png";
 			
 			// IM19
 	
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM19 = new Image(160,160);
-			Tile.IM19.src = "memoria-associacao/img/desenhar2.png";
+			Tile.IM19.src = "memoria-associacao2/img/peixe2.png";
 			
 			// IM20
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM20 = new Image(160,160);
-			Tile.IM20.src = "memoria-associacao/img/dinheiro1.png";
+			Tile.IM20.src = "memoria-associacao2/img/pes1.png";
 			
 			// IM21
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM21 = new Image(160,160);
-			Tile.IM21.src = "memoria-associacao/img/dinheiro2.png";
+			Tile.IM21.src = "memoria-associacao2/img/pes2.png";
 			
 			// IM22
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM22 = new Image(160,160);
-			Tile.IM22.src = "memoria-associacao/img/flor1.jpg";
+			Tile.IM22.src = "memoria-associacao2/img/pintar1.png";
 			
 			// IM23
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM23 = new Image(160,160);
-			Tile.IM23.src = "memoria-associacao/img/flor2.png";
+			Tile.IM23.src = "memoria-associacao2/img/pintar2.png";
 			
 			// IM24
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM24 = new Image(160,160);
-			Tile.IM24.src = "memoria-associacao/img/futebol1.png";
+			Tile.IM24.src = "memoria-associacao2/img/praia1.png";
 			
 			// IM25
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM25 = new Image(160,160);
-			Tile.IM25.src = "memoria-associacao/img/futebol2.png";
+			Tile.IM25.src = "memoria-associacao2/img/praia2.png";
 			
 			// IM26
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM26 = new Image(160,160);
-			Tile.IM26.src = "memoria-associacao/img/golf1.png";
+			Tile.IM26.src = "memoria-associacao2/img/vinho1.png";
 			
 			// IM27
 
 			_ctx.fillStyle = "#cc99ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM27 = new Image(160,160);
-			Tile.IM27.src = "memoria-associacao/img/golf2.png";
+			Tile.IM27.src = "memoria-associacao2/img/vinho2.png";
 			
 			// IM28
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM28 = new Image(160,160);
-			Tile.IM28.src = "memoria-associacao/img/la1.png";
+			Tile.IM28.src = "memoria-associacao2/img/aviao1.png";
 						
 			// IM29
 
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM29 = new Image(160,160);
-			Tile.IM29.src = "memoria-associacao/img/la2.png";
+			Tile.IM29.src = "memoria-associacao2/img/aviao2.png";
 
 			
 			
@@ -734,7 +734,7 @@ function Logo() {
 
 
 		logo = new Image();
-		logo.src = "memoria-associacao/img/logo.png";
+		logo.src = "memoria-associacao2/img/logo.png";
 
 
 	})();

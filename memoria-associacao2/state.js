@@ -9,7 +9,7 @@ function MenuState(name) {
 	var btns = [], angle = 0, frames = 0;
 
 	var _yPos = 200;
-	btns.push(new MenuButton("Jogar", 380, _yPos, function() {
+	btns.push(new MenuButton("Jogar", 350, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -29,17 +29,16 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(480, 80);
+		ctx.translate(450, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
-		ctx.translate(25, 40);
+		ctx.translate(-20, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("Animais \xE0 solta", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("Mem\u00F3ria aos pares II", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
 		logo.draw(ctx);
-
 		for (var i = btns.length;i--;) {
 			btns[i].draw(ctx);
 		}
@@ -49,6 +48,8 @@ function MenuState(name) {
 		} else {
 			return scene.getCanvas();
 		}
+		
+		
 	}
 }
 
@@ -56,7 +57,7 @@ function MenuState(name) {
 function GameState(name) {
 	var complete=true;
 	this.name = name;
-	var scene = new Scene(canvas.width, canvas.height),counter=0,PARES_D=24,
+	var scene = new Scene(canvas.width, canvas.height),counter=0,PARES_D=15,
 		ctx = scene.getContext(),cronometro;
 	var playsmade=[];
 	var data, player, isPlayer, pares, mode, winner, winnerMsg, hastick;
@@ -73,9 +74,9 @@ function GameState(name) {
 		
 		if(counter==2)return;
 
-		if (px % 121 <= 116 && py % 82 <= 77) {
-			var idx = Math.floor(px/121);
-			idx += Math.floor(py/82)*8;
+		if (px % 155 <= 150 && py % 105 <= 100) {
+			var idx = Math.floor(px/155);
+			idx += Math.floor(py/105)*6;
 
 			if (data[idx].hasData()) {
 				return;
@@ -94,8 +95,7 @@ function GameState(name) {
 	this.init = function( tile) {
 		var spots=[];
 		
-		for(var i = 0; i<PARES_D;i++){
-		spots.push(i);
+		for(var i = 0; i<PARES_D*2;i++){
 		spots.push(i);
 		}
 		
@@ -104,13 +104,13 @@ function GameState(name) {
 		winnergb=false;
 		winnerMsg=false;
 		hastick = false;
-		pares=0;	
+		pares=0;
 		data = [];
 		counter=0;
 		cronometro=new Cronometro();
-		for (var i = 0; i < PARES_D*2; i++) {
-			var x = (i % 8)*121;
-			var y = Math.floor(i/8)*82;
+		for (var i = 0; i < 30; i++) {
+			var x = (i % 6)*155;
+			var y = Math.floor(i/6)*105;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -226,7 +226,7 @@ function GameState(name) {
 		}
 		
 		if (tutorial) {
-			var s = 10, lw = 2, w = 500, h = 290;
+			var s = 10, lw = 2, w = 500, h = 320;
 
 			w -= lw;
 			h -= lw;
@@ -262,14 +262,16 @@ function GameState(name) {
 				var line=18;
 			var txt = "Primeiro deve clicar em duas cartas. Se as imagens forem";
 				ctx.fillText(txt, 40, 150)
-				ctx.fillText("iguais, ficam voltadas para cima; se as imagens forem diferentes  ", 40, 168);
-				ctx.fillText("deve clicar novamente em duas cartas, at\u00E9 descobrir o par.", 40, 168+line);
-				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*3-10);
-				ctx.fillText("para cima.", 40, 168+line*4-10);
+				ctx.fillText("relacionadas, ficam voltadas para cima; se as imagens forem  ", 40, 168);
+				ctx.fillText("n\xE3o forem relacionadas deve clicar novamente em duas cartas,", 40, 168+line);
+				ctx.fillText("at\u00E9 descobrir o par.", 40, 168+line*2);
+				
+				ctx.fillText("E assim, sucessivamente at\u00E9 todas as cartas ficarem voltadas", 40, 168+line*4-10);
+				ctx.fillText("para cima.", 40, 168+line*5-10);
 			
 			var btns  = []
 			
-			btns.push(new MidButton("OK", 205, 240, function() {
+			btns.push(new MidButton("OK", 205, 260, function() {
 				tutorial=false;
 				
 			}
@@ -280,6 +282,7 @@ function GameState(name) {
 			ctx.restore();
 		}
 		cronometro.draw(ctx);
+		
 
 		if (_ctx) { 
 			scene.draw(_ctx);
@@ -361,8 +364,8 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+340 < x && x < this.x+this.width+340,
-			yl = this.y+171 < y && y < this.y+this.height+171;
+		var xl = this.x+314 < x && x < this.x+this.width+314,
+			yl = this.y+170 < y && y < this.y+this.height+170;
 
 		return xl && yl;
 	}
@@ -441,8 +444,8 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+240 < x && x < this.x+this.width+240,
-			yl = this.y+125	 < y && y < this.y+this.height+125;
+		var xl = this.x+214 < x && x < this.x+this.width+214,
+			yl = this.y+110 < y && y < this.y+this.height+110;
 
 		return xl && yl;
 	}

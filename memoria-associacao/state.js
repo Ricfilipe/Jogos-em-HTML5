@@ -4,7 +4,7 @@ function MenuState(name) {
 
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),
-		ctx = scene.getContext();
+		ctx = scene.getContext(),logo=new Logo();
 
 	var btns = [], angle = 0, frames = 0;
 
@@ -38,7 +38,7 @@ function MenuState(name) {
 		ctx.font = "30px Helvetica";
 		ctx.fillText("Mem\u00F3ria aos pares", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
-
+		logo.draw(ctx);
 		for (var i = btns.length;i--;) {
 			btns[i].draw(ctx);
 		}
@@ -48,6 +48,8 @@ function MenuState(name) {
 		} else {
 			return scene.getCanvas();
 		}
+		
+		
 	}
 }
 
@@ -280,6 +282,7 @@ function GameState(name) {
 			ctx.restore();
 		}
 		cronometro.draw(ctx);
+		
 
 		if (_ctx) { 
 			scene.draw(_ctx);
