@@ -99,8 +99,8 @@ function Tile(x, y,type) {
 	if (tile == null) {
 		(function() {
 			var _c = document.createElement("canvas");
-			_c.width = 155;
-			_c.height = 125;
+			_c.width = 150;
+			_c.height = 100;
 			var _ctx = _c.getContext("2d");
 
 			_ctx.fillStyle = "#cce6ff";
@@ -112,26 +112,26 @@ function Tile(x, y,type) {
 			_ctx.fillRect(0, 0, 160, 160); 
 			
 			Tile.BLANK = new Image();
-			Tile.BLANK.src = _c.toDataURL();
+			Tile.BLANK.src =  "memoria-viagem/img/hidden.png";
 
 
 			// IM0
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.translate(5, 5);
 			Tile.IM0 = new Image(160,160);
-			Tile.IM0.src = "memoria-viagem/img/roma.png";
+			Tile.IM0.src = "memoria-viagem/img/p1.png";
 			
 			// IM1
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 160, 160);
 			Tile.IM1 = new Image(160,160);
-			Tile.IM1.src =  "memoria-viagem/img/paris.png";
+			Tile.IM1.src =  "memoria-viagem/img/p2.png";
 
 			// IM2
 			_ctx.fillStyle = "#cce6ff";
 			_ctx.fillRect(0, 0, 160, 160);
 			Tile.IM2 = new Image(100,100);
-			Tile.IM2.src = "memoria-viagem/img/tajmahal.png";
+			Tile.IM2.src = "memoria-viagem/img/p3.png";
 			
 			// IM3
 			_ctx.fillStyle = "#cce6ff";
@@ -139,7 +139,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#ff33cc";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM3 = new Image(100,100);
-			Tile.IM3.src = "memoria-viagem/img/sydney.png";
+			Tile.IM3.src = "memoria-viagem/img/p4.png";
 			
 			// IM4
 			_ctx.fillStyle = "#cce6ff";
@@ -147,7 +147,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#66ff33";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM4 =new Image(160,160);
-			Tile.IM4.src = "memoria-viagem/img/alhambra.png";
+			Tile.IM4.src = "memoria-viagem/img/p5.png";
 			
 			// IM5
 			_ctx.fillStyle = "#cce6ff";
@@ -155,7 +155,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#00ffcc";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM5 = new Image(160,160);
-			Tile.IM5.src ="memoria-viagem/img/muralha.png";
+			Tile.IM5.src ="memoria-viagem/img/p6.png";
 			
 			// IM6
 			_ctx.fillStyle = "#cce6ff";
@@ -163,7 +163,7 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#ffffff";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM6 =new Image(160,160);
-			Tile.IM6.src = "memoria-viagem/img/newyork.png";
+			Tile.IM6.src = "memoria-viagem/img/p7.png";
 			
 			// IM7
 			_ctx.fillStyle = "#cce6ff";
@@ -171,9 +171,57 @@ function Tile(x, y,type) {
 			_ctx.fillStyle = "#000000";
 			_ctx.fillRect(0, 0, 150, 150);
 			Tile.IM7 = new Image(160,160);;
-			Tile.IM7.src ="memoria-viagem/img/londres.png";
+			Tile.IM7.src ="memoria-viagem/img/p8.png";
+			
+			// IM8
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM8 =new Image(160,160);
+			Tile.IM8.src = "memoria-viagem/img/p9.png";
+			
+			// IM9
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM9 = new Image(160,160);
+			Tile.IM9.src = "memoria-viagem/img/p10.png";
 			
 
+			// IM10
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM10 = new Image(160,160);
+			Tile.IM10.src = "memoria-viagem/img/p11.png";
+			
+			// IM11
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM11 = new Image(160,160);
+			Tile.IM11.src = "memoria-viagem/img/p12.png";
+			
+			// IM12
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM12 = new Image(160,160);
+			Tile.IM12.src = "memoria-viagem/img/p13.png";
+			
+			// IM13
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM13 = new Image(160,160);
+			Tile.IM13.src = "memoria-viagem/img/p14.png";
+			
+			// IM14
+
+			_ctx.fillStyle = "#cce6ff";
+			_ctx.fillRect(0, 0, 150, 150);
+			Tile.IM14 = new Image(160,160);
+			Tile.IM14.src = "memoria-viagem/img/p15.png";
 			
 		})();
 		tile = Tile.BLANK;
@@ -206,7 +254,27 @@ function Tile(x, y,type) {
 		case 7:
 			this.hidden_t=Tile.IM7;
 			break;
-
+		case 8:
+			this.hidden_t=Tile.IM8;
+			break;
+		case 9:
+			this.hidden_t=Tile.IM9;
+			break;
+		case 10:
+			this.hidden_t=Tile.IM10;
+			break;
+		case 11:
+			this.hidden_t=Tile.IM11;
+			break;
+		case 12:
+			this.hidden_t=Tile.IM12;
+			break;
+		case 13:
+			this.hidden_t=Tile.IM13;
+			break;
+		case 14:
+			this.hidden_t=Tile.IM14;
+			break;
 		}
 
 	this.undoTile = function(){
@@ -505,7 +573,31 @@ function Cronometro() {
 
 	this.draw = function(ctx) {
 		
-		ctx.drawImage(normal, 270, 525);
+		ctx.drawImage(normal, 425, 525);
 	}
 
 }
+
+function Logo() {
+	var logo;
+ 
+	(function() {
+		var _c = document.createElement("canvas"),
+			_w = _c.width = 100,
+			_h = _c.height = 100;
+
+
+		logo = new Image();
+		logo.src = "memoria-associacao2/img/logo.png";
+
+
+	})();
+	
+
+
+	this.draw = function(ctx) {
+		
+		ctx.drawImage(logo, 800, 490);
+	}
+	}
+
