@@ -4,12 +4,12 @@ function MenuState(name) {
 
 	this.name = name;
 	var scene = new Scene(canvas.width, canvas.height),
-		ctx = scene.getContext();
+		ctx = scene.getContext(),logo=new Logo();
 
 	var btns = [], angle = 0, frames = 0;
 
-	var _yPos = 210;
-	btns.push(new MenuButton("Jogar", 200, _yPos, function() {
+	var _yPos = 200;
+	btns.push(new MenuButton("Jogar", 350, _yPos, function() {
 	if(!state.next){
 		tutorial=true;
 		state.get("game").init();
@@ -29,15 +29,16 @@ function MenuState(name) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		ctx.save();
-		ctx.translate(300, 80);
+		ctx.translate(450, 80);
 		ctx.font = "40px Helvetica";
 		ctx.fillStyle = "black";
 		var txt = "Jogo da Mem\u00F3ria";
 		ctx.fillText(txt, -ctx.measureText(txt).width/2, 18);
-		ctx.translate(0, 40);
+		ctx.translate(-50, 40);
 		ctx.font = "30px Helvetica";
-		ctx.fillText("\xC1 Volta do Mundo", -ctx.measureText(txt).width/2, 18);
+		ctx.fillText("Viagens pela minha terra", -ctx.measureText(txt).width/2, 18);
 		ctx.restore();
+		logo.draw(ctx);
 
 		for (var i = btns.length;i--;) {
 			btns[i].draw(ctx);
@@ -55,7 +56,7 @@ function MenuState(name) {
 function GameState(name) {
 	var complete=true;
 	this.name = name;
-	var scene = new Scene(canvas.width, canvas.height),counter=0,PARES_D=8,
+	var scene = new Scene(canvas.width, canvas.height),counter=0,PARES_D=15,
 		ctx = scene.getContext(),cronometro;
 	var playsmade=[];
 	var data, player, isPlayer, pares, mode, winner, winnerMsg, hastick;
@@ -72,9 +73,9 @@ function GameState(name) {
 		
 		if(counter==2)return;
 
-		if (px % 160 <= 155 && py % 130 <= 125) {
-			var idx = Math.floor(px/160);
-			idx += Math.floor(py/130)*4;
+		if (px % 155 <= 150 && py % 105 <= 100) {
+			var idx = Math.floor(px/155);
+			idx += Math.floor(py/105)*6;
 
 			if (data[idx].hasData()) {
 				return;
@@ -108,8 +109,8 @@ function GameState(name) {
 		counter=0;
 		cronometro=new Cronometro();
 		for (var i = 0; i < PARES_D*2; i++) {
-			var x = (i % 4)*160;
-			var y = Math.floor(i/4)*130;
+			var x = (i % 6)*155;
+			var y = Math.floor(i/6)*105;
 			aux=Math.floor(Math.random()*(spots.length))
 			type=  spots[aux];
 			spots.splice(aux,1);
@@ -360,7 +361,7 @@ function EndButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+169 < x && x < this.x+this.width+169,
+		var xl = this.x+314 < x && x < this.x+this.width+314,
 			yl = this.y+170 < y && y < this.y+this.height+170;
 
 		return xl && yl;
@@ -440,7 +441,7 @@ function MidButton(text, x, y, cb,h,w) {
 		rect.hasPoint = function(x, y) {
 		
 
-		var xl = this.x+69 < x && x < this.x+this.width+69,
+		var xl = this.x+214 < x && x < this.x+this.width+214,
 			yl = this.y+110 < y && y < this.y+this.height+110;
 
 		return xl && yl;
