@@ -560,7 +560,7 @@ function Cronometro() {
 		var _ctx = _c.getContext("2d");
 
 		_ctx.fillStyle = "white";
-		_ctx.strokeStyle = "#00ff99";
+		_ctx.strokeStyle = "#ff6666";
 		_ctx.lineWidth = _lw;
 		_ctx.font = "20px Helvetica";
 
